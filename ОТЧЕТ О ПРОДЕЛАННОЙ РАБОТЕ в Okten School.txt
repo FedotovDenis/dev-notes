@@ -1,0 +1,5396 @@
+Task Completed
+
+📚 База знаний: React + TypeScript + Vite Course
+Описание файла
+Этот файл содержит подробные отчеты по всем пройденным лекциям и домашним заданиям курса по React, TypeScript и Vite. Каждый отчет включает:
+
+Тему лекции/домашки — что изучалось
+Основные изменения/функциональность — что было реализовано
+Код ключевых файлов — с комментариями
+Изученные концепции/технологии — список тем
+Нюансы/Лучшие практики — важные замечания
+Назначение
+Файл служит для восстановления контекста между сессиями чата. При достижении лимита токенов или начале нового чата, этот файл позволяет быстро восстановить:
+
+Какие лекции пройдены
+Что выучено по каждой теме
+Какой код был написан
+Какие нюансы и лучшие практики изучены
+Текущий прогресс в обучении
+Структура обучения
+Курс включает:
+
+Лекции: lesson1-8 (React основы, хуки, роутинг, формы, оптимизация, Redux, Query)
+Домашние задания: hw1-7 (практические задачи)
+Контрольный проект: React приложение без видео-инструкций
+Дальнейшее обучение: SQL, Node.js
+Как использовать
+При начале нового чата:
+
+Скопируйте этот файл
+Отправьте мне содержимое
+Я восстановлю всю память о пройденном материале
+Продолжим обучение с текущего момента
+
+
+
+
+
+
+
+## 📜 Отчет по лекции: lessons/lesson1/component
+
+__Дата:__ 5 июля 2026 г.
+
+__Тема:__ Основы компонента React и передача props.
+
+__Краткое описание:__ Данная лекция демонстрирует создание простого функционального компонента в React с использованием TypeScript, а также принцип передачи данных в компонент через props. Она является вводной и показывает базовую структуру React-приложения, состоящего из корневого компонента `App` и переиспользуемого компонента `MyComponent`.
+
+__Основные изменения/функциональность:__
+
+- Создан файл `src/components/MyComponent.tsx`, содержащий функциональный React-компонент `MyComponent`.
+
+- Компонент `MyComponent` принимает один `prop` под названием `text` типа `string` и отображает его внутри `div`.
+
+  ```typescript
+  // src/components/MyComponent.tsx
+  type MyComponentPropType = {text: string}
+
+  const MyComponent: FC<MyComponentPropType> = ({text}) => {
+      return (
+          <div>
+              {text}
+          </div>
+      );
+  };
+  ```
+
+- В `src/App.tsx` компонент `MyComponent` импортируется и используется трижды, каждый раз с разным значением `prop` `text` (`"Hello 1"`, `"Hello 2"`, `"Hello 3"`).
+
+  ```typescript
+  // src/App.tsx
+  import MyComponent from "./components/MyComponent.tsx";
+
+  function App() {
+    return (
+      <>
+          < MyComponent text={'Hello 1'} />
+          < MyComponent text={'Hello 2'} />
+          < MyComponent text={'Hello 3'} />
+      </>
+    )
+  }
+  ```
+
+__Изученные концепции/технологии:__
+
+- __Функциональные компоненты React:__ Базовый способ создания компонентов в React.
+- __Props (свойства):__ Механизм передачи данных от родительского компонента к дочернему.
+- __TypeScript в React:__ Использование `type` для определения типов `props` (`MyComponentPropType`) и `FC` (Functional Component) из React для явного указания типа компонента.
+- __Импорт/Экспорт модулей:__ Стандартный синтаксис ES-модулей для организации кода.
+- __JSX:__ Синтаксис для описания пользовательского интерфейса.
+
+__Нюансы/Лучшие практики:__
+
+- Четкое определение типов для `props` с помощью TypeScript улучшает читаемость кода и предотвращает ошибки во время разработки.
+- Разделение приложения на мелкие, переиспользуемые компоненты (`MyComponent`) является ключевым принципом React для поддержания чистоты кода и удобства разработки.
+- Использование `FC` из `"react"` явно указывает, что `MyComponent` является функциональным компонентом, что может быть полезно для ясности, хотя в современных версиях TypeScript это часто выводится автоматически.
+
+__Вопросы/Дальнейшие шаги:__
+
+- Далее мы должны перейти к анализу домашнего задания, соответствующего этой лекции, начиная с ветки `hw/hw1/task1`.
+
+
+
+
+
+## 📜 Отчет по домашнему заданию: hw/hw1/task1
+
+__Дата:__ 5 июля 2026 г.
+
+__Тема:__ Работа с массивами и метод `map()` в React.
+
+__Краткое описание:__ В этом домашнем задании нужно было создать массив строк с названиями курсов и отобразить их в виде списка на странице, используя метод `map()`. Это первое знакомство с рендерингом списков в React.
+
+__Основные изменения/функциональность:__
+
+- В `src/App.tsx` создан массив `coursesTitleArray` с названиями курсов Okten School.
+- Компонент `App` переписан со стрелочной функции (`const App = () => {...}`) вместо обычной функции.
+- Вместо использования `MyComponent` теперь используется метод `map()` для динамического рендеринга элементов списка `<li>`.
+- Добавлены стили для `<li>` в `src/App.css`.
+
+__Код:__
+
+```typescript
+// src/App.tsx
+import './App.css'
+
+const coursesTitleArray: string[] = [
+    'JavaScript Complex',
+    'Java Complex',
+    'Python Complex',
+    'QA Complex',
+    'Fullstack',
+    'Frontend'
+];
+
+const App = () => {
+  return (
+    <>
+        <ul>
+            {
+                coursesTitleArray.map((value, index) => <li key={index}>{value}</li>)
+            }
+        </ul>
+    </>
+  )
+}
+
+export default App
+```
+
+```css
+/* src/App.css */
+li {
+  background: lightcyan;
+  list-style: none;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+```
+
+__Изученные концепции/технологии:__
+
+- __Метод `map()` в JSX:__ Использование `map()` для трансформации массива данных в массив JSX-элементов.
+- __Стрелочные функции для компонентов:__ Компонент `App` переписан как стрелочная функция (`const App = () => {...}`).
+- __Атрибут `key`:__ Каждому элементу списка присваивается уникальный `key` (в данном случае `index`), что необходимо React для эффективного обновления DOM.
+- __Типизация массива:__ Использование `string[]` для явного указания типа массива строк.
+- __CSS-стилизация:__ Базовые стили для элементов списка (фон, отступы, скругление).
+
+__Нюансы/Лучшие практики:__
+
+- Использование `index` в качестве `key` — это распространенная практика для статических списков, но для динамических списков (с добавлением/удалением элементов) лучше использовать уникальные идентификаторы.
+- Стрелочная функция с неявным возвратом (`<li key={index}>{value}</li>`) делает код более лаконичным.
+- Массив данных вынесен за пределы компонента, что является хорошей практикой для статических данных.
+
+
+
+
+
+## 📜 Отчет по домашнему заданию: hw/hw1/task2
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ Модели (Interface), компоненты и передача объектов через props.
+
+__Краткое описание:__ В этой задаче нужно было взять массив объектов курсов (с названием и длительностью), создать для него TypeScript-модель (interface), разбить код на отдельные компоненты и вывести данные на страницу. Это первый шаг к более сложной архитектуре React-приложения.
+
+__Основные изменения/функциональность:__
+
+- Создан файл `src/arrays.ts` с массивом объектов `coursesAndDurationArray`, где каждый объект содержит `title` (string) и `monthDuration` (number).
+- Создана модель `src/models/coursesModelsInterfaceArray.tsx` с интерфейсом `coursesModelsInterfaceArray`.
+- Создан компонент `CoursesComponents`, который принимает через props объект курса и отображает его.
+- Создан компонент `CoursesComponentInterface`, который маппит массив и рендерит `CoursesComponents` для каждого элемента.
+- Обновлен `App.tsx` для использования `CoursesComponentInterface`.
+
+__Код:__
+
+```typescript
+// src/models/coursesModelsInterfaceArray.tsx — Модель (Interface)
+export interface coursesModelsInterfaceArray {
+    title: string;
+    monthDuration: number;
+}
+```
+
+```typescript
+// src/arrays.ts — Массив данных
+import type {coursesModelsInterfaceArray} from "./models/coursesModelsInterfaceArray.tsx";
+
+export const coursesAndDurationArray: coursesModelsInterfaceArray[] = [
+    {title: 'JavaScript Complex', monthDuration: 5},
+    {title: 'Java Complex', monthDuration: 6},
+    {title: 'Python Complex', monthDuration: 6},
+    {title: 'QA Complex', monthDuration: 4},
+    {title: 'FullStack', monthDuration: 7},
+    {title: 'Frontend', monthDuration: 4}
+];
+```
+
+```typescript
+// src/component/coursesComponents/CoursesComponents.tsx — Дочерний компонент
+import type {FC} from "react";
+import type {coursesModelsInterfaceArray} from "../../models/coursesModelsInterfaceArray.tsx";
+import "./CoursesComponents.css"
+
+export type PropTypeCourses = {
+    course: coursesModelsInterfaceArray;
+}
+
+export const CoursesComponents: FC<PropTypeCourses> = ({course}) => {
+    return (
+        <ul>
+            {course.title} {course.monthDuration}
+        </ul>
+    );
+};
+```
+
+```typescript
+// src/component/coursesComponentInterface/CoursesComponentInterface.tsx — Компонент-список
+import {coursesAndDurationArray} from "../../arrays.ts";
+import type {coursesModelsInterfaceArray} from "../../models/coursesModelsInterfaceArray.tsx";
+import {CoursesComponents} from "../coursesComponents/CoursesComponents.tsx";
+import "./CoursesComponentInterface.css"
+
+export const CoursesComponentInterface = () => {
+    return (
+        <li>
+            {
+                coursesAndDurationArray.map((course: coursesModelsInterfaceArray, index) => {
+                    return <CoursesComponents course={course} key={index}/>
+                })
+            }
+        </li>
+    );
+};
+```
+
+```typescript
+// src/App.tsx — Корневой компонент
+import './App.css'
+import {CoursesComponentInterface} from "./component/coursesComponentInterface/CoursesComponentInterface.tsx";
+
+const App = () => {
+  return (
+    <>
+      <CoursesComponentInterface />
+    </>
+  )
+}
+
+export default App
+```
+
+__Изученные концепции/технологии:__
+
+- __TypeScript Interface:__ Создание модели данных через `interface` для строгой типизации объектов.
+- __Передача объектов через props:__ Компонент `CoursesComponents` принимает целый объект `course` как prop, а не отдельные строки.
+- __Импорт типов:__ Использование `import type {...}` для импорта только типов (без рантайм-кода).
+- __Разделение на компоненты:__ Архитектура из трех уровней: данные (`arrays.ts`) → компонент-список (`CoursesComponentInterface`) → компонент-элемент (`CoursesComponents`).
+- __CSS-модули для компонентов:__ Каждый компонент имеет свой собственный CSS-файл.
+
+__Нюансы/Лучшие практики:__
+
+- Массив данных вынесен в отдельный файл (`arrays.ts`), что улучшает организацию кода.
+- Модели (`models`) хранятся отдельно от компонентов — хорошая практика для переиспользования типов.
+- Использован `import type` вместо `import` для импорта интерфейсов — это улучшает производительность сборки (TypeScript удаляет импорты типов при компиляции).
+- Для каждого компонента создана отдельная папка со своим CSS-файлом, что облегчает поддержку и масштабирование.
+
+
+
+
+
+## 📜 Отчет по домашнему заданию: hw/hw1/task3
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ Children (ReactNode), изображения и работа с объектами сложной структуры.
+
+__Краткое описание:__ В этой задаче нужно было создать массив объектов персонажей Симпсонов (с именем, фамилией, возрастом, описанием и фото), вывести их на страницу в виде карточек. Ключевое нововведение — использование `children` для передачи контента внутрь компонента.
+
+__Основные изменения/функциональность:__
+
+- Создан файл `src/data/dataSimpsons.ts` с массивом объектов персонажей Симпсонов.
+- Создана модель `src/models/IDataInterfaceSimpsons.ts` с интерфейсом, содержащим поля: `name`, `surname`, `age`, `info`, `photo`.
+- Создан компонент `CharacterComponent`, который принимает объект персонажа через `item` и дочерний контент через `children`.
+- Создан компонент `FamilyComponent`, который маппит массив и передает `info` и `age` как `children` в `CharacterComponent`.
+- Добавлены изображения персонажей через тег `<img>`.
+
+__Код:__
+
+```typescript
+// src/models/IDataInterfaceSimpsons.ts — Модель
+export interface IDataInterfaceSimpsons {
+  name: string;
+  surname: string;
+  age: number;
+  info: string;
+  photo: string;
+}
+```
+
+```typescript
+// src/data/dataSimpsons.ts — Данные
+import type {IDataInterfaceSimpsons} from "../models/IDataInterfaceSimpsons.ts";
+
+export const simpsons: IDataInterfaceSimpsons[] = [
+    {
+        name: 'Bart',
+        surname: 'Simpson',
+        age: 10,
+        info: 'Бартолом\'ю ДжоДжо «Барт» Сімпсон...',
+        photo: 'https://upload.wikimedia.org/wikipedia/uk/a/aa/Bart_simpson.png'
+    },
+    // ... Homer, Marge, Lisa, Maggie
+];
+```
+
+```typescript
+// src/components/character-component/CharacterComponent.tsx — Дочерний компонент с children
+import type {IDataInterfaceSimpsons} from "../../models/IDataInterfaceSimpsons.ts";
+import type {ReactNode} from "react";
+import './character-component.css'
+
+type CharacterComponentTypeProps = {
+    item: IDataInterfaceSimpsons;
+    children: ReactNode;  // <-- children для передачи контента внутрь
+}
+
+const CharacterComponent = ({item, children}: CharacterComponentTypeProps) => {
+    return (
+        <div>
+            <h3>{item.name} {item.surname}</h3>
+            <img src={item.photo} alt={item.name}/>
+            <p>{children}</p>  {/* children отображается здесь */}
+        </div>
+    );
+};
+
+export default CharacterComponent;
+```
+
+```typescript
+// src/components/family-component/FamilyComponent.tsx — Компонент-список
+import {simpsons} from "../../data/dataSimpsons.ts";
+import CharacterComponent from "../character-component/CharacterComponent.tsx";
+import './family-component.css'
+
+export const FamilyComponent = () => {
+    return (
+        <div>
+            {
+                simpsons.map((value, index) => 
+                    <CharacterComponent key={index} item={value}>
+                        {value.info} {value.age}  {/* это children */}
+                    </CharacterComponent>
+                )
+            }
+        </div>
+    );
+};
+```
+
+```typescript
+// src/App.tsx
+import './App.css'
+import {FamilyComponent} from "./components/family-component/FamilyComponent.tsx";
+
+const App = () => {
+  return (
+    <>
+      <FamilyComponent/>
+    </>
+  )
+}
+export default App
+```
+
+__Изученные концепции/технологии:__
+
+- __Children (ReactNode):__ Передача контента между открывающим и закрывающим тегом компонента через `children` типа `ReactNode`.
+- __Тег `<img>` в React:__ Отображение изображений с атрибутами `src` и `alt`.
+- __Сложная структура данных:__ Объекты с разными типами полей (string, number).
+- __Export default:__ Компонент `CharacterComponent` экспортируется через `export default`, а не именованный экспорт.
+
+__Нюансы/Лучшие практики:__
+
+- `children` — это специальный prop в React, который позволяет передавать JSX-контент внутрь компонента. Типизируется как `ReactNode`.
+- Изображения загружаются по URL из интернета (не локальные файлы).
+- В `CharacterComponent` используется деструктуризация props: `({item, children})`.
+- Компонент `CharacterComponent` переиспользуется для каждого персонажа, что демонстрирует принцип DRY (Don't Repeat Yourself).
+
+
+
+
+
+## 📜 Отчет по домашнему заданию: hw/hw1/task4
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ Вложенный map(), children + ReactNode, CSS-стилизация с className.
+
+__Краткое описание:__ В этой задаче нужно было усложнить модель данных курсов — добавить `hourDuration` и массив `modules`. Главная особенность — вложенный `map()`: сначала маппится массив курсов, а внутри каждого курса маппится массив модулей, которые передаются как `children`.
+
+__Основные изменения/функциональность:__
+
+- Модель `ICoursesArrayDataInterface` расширена: добавлены `hourDuration: number` и `modules: string[]`.
+- В `coursesArray.ts` каждый курс содержит `title`, `monthDuration`, `hourDuration` и список `modules`.
+- Компонент `CoursesArrayInterfaceComponent` отображает заголовок, длительность и `children`.
+- Компонент `CoursesArrayInterfaceMapComponent` рендерит карточки курсов с вложенным списком модулей.
+- CSS-стилизация с использованием `className`.
+
+__Код:__
+
+```typescript
+// src/model/ICoursesArrayDataInterface.ts
+export interface ICoursesArrayDataInterface {
+    title: string;
+    monthDuration: number;
+    hourDuration: number;
+    modules: string[];
+}
+```
+
+```typescript
+// src/data/coursesArray.ts (фрагмент)
+export const coursesArray: ICoursesArrayDataInterface[] = [
+    {title: 'JavaScript Complex', monthDuration: 5, hourDuration: 909, modules: ['html','css','js','mysql','mongodb','react','angular','aws','docker','git','node.js']},
+    // ... Java Complex, Python Complex, QA Complex, FullStack, Frontend
+];
+```
+
+```typescript
+// src/components/courses-array-interface-component/CoursesArrayInterfaceComponent.tsx
+type CoursesArrayComponentTypeProps = {item: ICoursesArrayDataInterface; children: ReactNode;}
+export const CoursesArrayInterfaceComponent = ({item, children}: CoursesArrayComponentTypeProps) => {
+    return (
+        <div className="courses-array-interface-component">
+            <h1>{item.title}</h1>
+            <h3>{item.monthDuration} month</h3>
+            <h3>{item.hourDuration} hour</h3>
+            <div>{children}</div>
+        </div>
+    );
+};
+```
+
+```typescript
+// src/components/courses-array-interface-map-component/CoursesArrayInterfaceMapComponent.tsx
+export const CoursesArrayInterfaceMapComponent = () => {
+    return (
+        <div className="courses-array-interface-map-component">
+            {coursesArray.map((value, index) =>
+                <CoursesArrayInterfaceComponent key={index} item={value}>
+                    <ul>{value.modules.map((v, i) => <li key={i}>{v}</li>)}</ul>
+                </CoursesArrayInterfaceComponent>
+            )}
+        </div>
+    );
+};
+```
+
+__Изученные концепции/технологии:__
+
+- __Вложенный map()__ — цикл по курсам, внутри цикл по модулям
+- __className__ — CSS-классы вместо глобальных селекторов
+- __Flexbox__ — display: flex, flex-direction: column, justify-content: center
+- __CSS-переходы и тени__ — transition, box-shadow, text-shadow
+
+__Нюансы/Лучшие практики:__
+
+- Вложенный map() — нормальная практика, но при глубокой вложенности лучше выносить в отдельные компоненты
+- className изолирует стили и предотвращает конфликты
+
+__Итог по hw/hw1:__ Все 4 задачи выполнены. Пройден путь от простого списка до вложенного map() с className.
+
+
+
+
+
+## 📜 Отчет по лекции: lessons/lesson2/useState-hook
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ Хук состояния `useState`, обработка событий `onClick`, счетчик.
+
+__Краткое описание:__ Первое знакомство с хуком `useState` в React. Создан простой счетчик с двумя кнопками: increment (увеличение) и decrement (уменьшение). Значение счетчика отображается в теге `<h1>`.
+
+__Основные изменения/функциональность:__
+
+- Импортирован хук `useState` из React.
+- Создана переменная состояния `counter` и функция для ее обновления `setCounter` с начальным значением `0`.
+- Две кнопки: `increment` (увеличивает счетчик) и `decrement` (уменьшает счетчик).
+- Значение счетчика отображается в `<h1>{counter}</h1>`.
+
+__Код:__
+
+```typescript
+// src/App.tsx
+import './App.css'
+import {useState} from "react";
+
+const App = () => {
+
+    let [counter, setCounter] = useState(0);
+
+  return (
+    <div>
+        <h1>{counter}</h1>
+
+        <button onClick={() => {
+            setCounter(++counter)
+        }}>increment</button>
+
+        <button onClick={() => {
+            setCounter(counter--)
+        }}>decrement</button>
+    </div>
+  )
+}
+
+export default App
+```
+
+__Изученные концепции/технологии:__
+
+- __useState:__ Базовый хук React для добавления состояния в функциональный компонент. Возвращает массив из двух элементов: текущее значение и функцию для его обновления.
+- __Деструктуризация массива:__ `let [counter, setCounter] = useState(0)` — синтаксис деструктуризации для получения значения и функции-сеттера.
+- __onClick:__ Обработчик клика по кнопке в React. Принимает стрелочную функцию.
+- __Рендеринг переменной в JSX:__ `{counter}` — отображение значения JavaScript-переменной внутри JSX.
+
+__Нюансы/Лучшие практики:__
+
+- ⚠️ __ВАЖНО (антипаттерн):__ В коде используется мутация состояния через `++counter` и `counter--`. Это __неправильный подход__ в React. Состояние нельзя мутировать напрямую. Правильно использовать:
+
+  ```typescript
+  // Правильный вариант 1:
+  setCounter(prev => prev + 1)
+
+  // Правильный вариант 2:
+  setCounter(counter + 1)
+  ```
+
+  Использование `++counter` изменяет переменную `counter` напрямую, что может привести к непредсказуемому поведению и багам, особенно при асинхронных операциях.
+
+- Использование `let` вместо `const` для деструктуризации `useState` — тоже не лучшая практика. `const [counter, setCounter] = useState(0)` — предпочтительный вариант, так как мы не переназначаем переменную.
+
+
+
+
+
+## 📜 Отчет по лекции: lessons/lesson2/useEffect-hooks-fetch
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ Хук `useEffect`, Fetch API, работа с внешними данными, модель данных.
+
+__Краткое описание:__ В этой лекции изучается хук `useEffect` для выполнения побочных эффектов. Данные пользователей загружаются с удаленного API (`jsonplaceholder.typicode.com/users`) с помощью Fetch API и отображаются на странице. Это первый опыт работы с асинхронными запросами в React.
+
+__Основные изменения/функциональность:__
+
+- Создана модель `IUser` с полями: `id`, `name`, `username`, `email`, `street`, `phone`, `website`.
+- Компонент `UsersComponent` использует `useEffect` для выполнения GET-запроса при монтировании компонента.
+- Полученные данные сохраняются в состояние `users` через `setUsers`.
+- Компонент `UserComponent` отображает имя пользователя.
+- Массив пользователей маппится в JSX-элементы.
+
+__Код:__
+
+```typescript
+// src/models/IUser.ts — Модель данных пользователя
+export interface IUser {
+    id: number;
+    name: string;
+    username: string;
+    email: string;
+    street: string;    // ⚠️ street находится внутри address в API
+    phone: string;
+    website: string;
+}
+```
+
+```typescript
+// src/components/users-component/UsersComponent.tsx — Компонент с useEffect и fetch
+import {useEffect, useState} from "react";
+import type {IUser} from "../../models/IUser.ts";
+import UserComponent from "../user-component/UserComponent.tsx";
+
+const UsersComponent = () => {
+
+    const [users, setUsers] = useState<IUser[]>([])
+
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(value => value.json())
+            .then(respons => {
+                setUsers(respons)
+            })
+    }, [])  // Пустой массив зависимостей — эффект выполняется 1 раз при монтировании
+
+    return (
+        <>
+            <div>
+                {
+                    users.map(user => <UserComponent key={user.id} item={user}/>)
+                }
+            </div>
+        </>
+    )
+}
+
+export default UsersComponent;
+```
+
+```typescript
+// src/components/user-component/UserComponent.tsx — Компонент для отображения пользователя
+import type {FC} from "react";
+import type {IUser} from "../../models/IUser.ts";
+
+type UserPropType = {
+    item: IUser
+}
+
+const UserComponent: FC<UserPropType> = ({item}) => {
+    return (
+        <div>{item.name}</div>
+    )
+}
+
+export default UserComponent;
+```
+
+```typescript
+// src/App.tsx
+import './App.css'
+import UsersComponent from "./components/users-component/UsersComponent.tsx";
+
+const App = () => {
+  return (
+    <>
+      <div>
+        <UsersComponent/>
+      </div>
+    </>
+  )
+}
+export default App
+```
+
+__Изученные концепции/технологии:__
+
+- __useEffect:__ Хук для выполнения побочных эффектов (fetch, подписки, таймеры). Принимает callback и массив зависимостей.
+- __Пустой массив зависимостей `[]`:__ Означает, что эффект выполняется только один раз после первого рендера (аналог `componentDidMount`).
+- __Fetch API:__ Встроенный в браузер метод для выполнения HTTP-запросов. Возвращает Promise.
+- __Асинхронная обработка:__ Цепочка `.then()` для обработки ответа: сначала `value.json()` (парсинг JSON), затем `setUsers(respons)` (сохранение в состояние).
+- __Типизация useState:__ `useState<IUser[]>([])` — дженерик указывает, что состояние будет массивом объектов `IUser`.
+- __key={user.id}:__ Использование уникального `id` из данных в качестве ключа (вместо индекса) — лучшая практика.
+
+__Нюансы/Лучшие практики:__
+
+- ⚠️ __Потенциальная ошибка в модели:__ В интерфейсе `IUser` поле `street` объявлено на верхнем уровне, но в реальном ответе API `jsonplaceholder` поле `street` находится внутри вложенного объекта `address`. Это может привести к тому, что `street` будет `undefined`. Правильная модель должна учитывать вложенность:
+
+  ```typescript
+  export interface IUser {
+      id: number;
+      name: string;
+      username: string;
+      email: string;
+      address: { street: string; suite: string; city: string; zipcode: string };
+      phone: string;
+      website: string;
+  }
+  ```
+
+- __Пустой массив зависимостей:__ Если внутри `useEffect` используются пропсы или состояние, их нужно добавлять в массив зависимостей, иначе эффект может работать с устаревшими данными (stale closure).
+
+- __Обработка ошибок:__ В коде отсутствует блок `.catch()` для обработки ошибок сети. В реальном проекте нужно добавлять обработку ошибок и состояние загрузки (loading state).
+
+- __key={user.id}:__ Использование `id` в качестве ключа — правильный подход, так как `id` уникален и стабилен.
+
+
+
+
+
+## 📜 Отчет по лекции: lessons/lesson2/State-lift
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ State Lift (поднятие состояния), Service Layer, Environment Variables (VITE).
+
+__Краткое описание:__ Реализовано поднятие состояния — клик по пользователю передает данные наверх и показывает детальную информацию. Вынос логики запросов в сервисный слой. Использование переменных окружения VITE.
+
+__Основные изменения:__
+
+- `.env` с `VITE_API_URL`
+- `src/services/api.service.ts` — `getUsers()`, `getUser(id)`
+- В `UsersComponent` добавлено состояние `item` для выбранного пользователя
+- Функция `foo(item)` для поднятия состояния
+- `UserComponent` принимает проп `foo` и вызывает его по `onClick`
+
+__Код:__
+
+```typescript
+// .env
+VITE_API_URL=https://jsonplaceholder.typicode.com/users
+```
+
+```typescript
+// src/services/api.service.ts
+import type {IUser} from "../models/IUser.ts";
+const getUsers = async (): Promise<IUser[]> => {
+    return await fetch(import.meta.env.VITE_API_URL).then(value => value.json())
+}
+const getUser = async (id: string): Promise<IUser> => {
+    return await fetch(import.meta.env.VITE_API_URL + '/' + id).then(value => value.json())
+}
+export { getUsers, getUser }
+```
+
+```typescript
+// src/components/user-component/UserComponent.tsx
+type UserPropType = { item: IUser; foo: (item: IUser) => void; }
+const UserComponent: FC<UserPropType> = ({item, foo}) => {
+    return (<div onClick={() => foo(item)}>{item.name}</div>)
+}
+```
+
+```typescript
+// src/components/users-component/UsersComponent.tsx
+const [item, setItem] = useState<IUser | null>(null)
+const foo = (item: IUser) => { setItem(item) }
+// Условный рендеринг: {item && (<div>...</div>)}
+```
+
+__Изученные концепции:__
+
+- State Lift — передача функции в дочерний компонент, вызов при клике
+- Service Layer — вынос fetch в отдельный файл
+- Environment Variables — `import.meta.env.VITE_API_URL`
+- Условный рендеринг через `{item && (...)}`
+- Async/Await в сервисах
+- Тип `IUser | null`
+
+
+
+
+
+## 📜 Отчет по лекции: lessons/lesson2/Service-layer
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ Вынос API-логики в сервисный слой (Service Layer).
+
+__Краткое описание:__ Ключевое изменение этой ветки — вынос fetch-запросов из компонента в отдельный сервисный файл `src/services/api.service.ts`. Это улучшает переиспользование кода и разделение ответственности (Separation of Concerns).
+
+__Отличие от предыдущей ветки (`useEffect-hooks-fetch`):__
+
+- Раньше fetch был напрямую внутри `UsersComponent`
+- Теперь fetch вынесен в `api.service.ts`, компонент импортирует и вызывает `getUsers()`
+
+__Основные изменения/функциональность:__
+
+- Создан файл `src/services/api.service.ts` с функциями `getUsers()` и `getUser(id)`
+- В `UsersComponent` fetch заменен на импорт и вызов `getUsers()`
+- `UserComponent` — простой компонент, отображающий имя (без State Lift)
+- URL API пока захардкожен в сервисе (без `.env`)
+
+__Код:__
+
+```typescript
+// src/services/api.service.ts — Сервисный слой
+import type {IUser} from "../models/IUser.ts";
+
+const getUsers = async (): Promise<IUser[]> => {
+    return await fetch('https://jsonplaceholder.typicode.com/users')
+        .then(value => value.json())
+}
+
+const getUser = async (id: string): Promise<IUser> => {
+    return await fetch('https://jsonplaceholder.typicode.com/users' + id)
+        .then(value => value.json())
+}
+
+export { getUsers, getUser }
+```
+
+```typescript
+// src/components/users-component/UsersComponent.tsx — Использует сервис
+import {useEffect, useState} from "react";
+import type {IUser} from "../../models/IUser.ts";
+import UserComponent from "../user-component/UserComponent.tsx";
+import {getUsers} from "../../services/api.service.ts";
+
+const UsersComponent = () => {
+    const [users, setUsers] = useState<IUser[]>([])
+
+    useEffect(() => {
+        getUsers().then(respons => {
+            setUsers(respons)
+        })
+    }, [])
+
+    return (
+        <>
+            <div>
+                {users.map(user => <UserComponent key={user.id} item={user}/>)}
+            </div>
+        </>
+    )
+}
+export default UsersComponent;
+```
+
+```typescript
+// src/components/user-component/UserComponent.tsx
+import type {FC} from "react";
+import type {IUser} from "../../models/IUser.ts";
+
+type UserPropType = { item: IUser }
+
+const UserComponent: FC<UserPropType> = ({item}) => {
+    return (<div>{item.name}</div>)
+}
+export default UserComponent;
+```
+
+```typescript
+// src/App.tsx
+import './App.css'
+import UsersComponent from "./components/users-component/UsersComponent.tsx";
+
+const App = () => {
+  return (
+    <>
+      <div><UsersComponent/></div>
+    </>
+  )
+}
+export default App
+```
+
+__Изученные концепции/технологии:__
+
+- __Service Layer (Сервисный слой):__ Вынесение логики работы с API в отдельные функции. Компоненты не содержат fetch-код, а только вызывают сервисы.
+- __Async/Await:__ Функции сервиса объявлены как `async` и возвращают `Promise<IUser[]>`.
+- __Именованный экспорт:__ Функции экспортируются через `export { getUsers, getUser }`.
+- __Разделение ответственности (SoC):__ Компонент отвечает только за отображение, сервис — за получение данных.
+
+__Нюансы/Лучшие практики:__
+
+- ⚠️ __Ошибка в `getUser`:__ В URL пропущен слеш `/` перед `id`. Должно быть: `fetch('https://jsonplaceholder.typicode.com/users/' + id)`. Сейчас будет `users1` вместо `users/1`.
+- ⚠️ URL API захардкоден — лучше вынести в `.env` переменную (как в ветке `State-lift`).
+- Нет обработки ошибок (`.catch()`) и состояния загрузки (loading state).
+
+
+
+
+
+## 📜 Отчет по лекции: lessons/lesson2/env-модуль
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ Переменные окружения (VITE_API_URL), использование в сервисах.
+
+__Краткое описание:__ Эта лекция посвящена использованию переменных окружения в проекте на Vite. URL API вынесен из кода в `.env` файл, что делает приложение более гибким и безопасным, позволяя легко менять эндпоинты в зависимости от окружения (разработка, продакшн) без изменения исходного кода.
+
+__Отличие от предыдущей ветки (`Service-layer`):__
+
+- В `Service-layer` URL API был захардкожен в `api.service.ts`.
+- Теперь URL API (`https://jsonplaceholder.typicode.com/users`) вынесен в `.env` файл под именем `VITE_API_URL`.
+
+__Основные изменения/функциональность:__
+
+- Создан файл `.env` в корне проекта с переменной `VITE_API_URL`.
+- В `src/services/api.service.ts` хардкоженый URL заменен на `import.meta.env.VITE_API_URL`.
+
+__Код:__
+
+```dotenv
+# .env — Переменные окружения Vite
+VITE_API_URL=https://jsonplaceholder.typicode.com/users
+```
+
+```typescript
+// src/services/api.service.ts — Использует переменную окружения
+import type {IUser} from "../models/IUser.ts";
+
+const getUsers = async ():Promise<IUser[]> => {
+    return await fetch(import.meta.env.VITE_API_URL) // <--- Используется VITE_API_URL
+                .then(value => value.json())
+}
+
+const getUser = async (id: string) :Promise<IUser> => {
+    return await fetch(import.meta.env.VITE_API_URL + '/' + id) // <--- Используется VITE_API_URL
+                .then(value => value.json())
+}
+
+export {
+    getUsers,
+    getUser
+}
+```
+
+```typescript
+// src/components/users-component/UsersComponent.tsx — Без изменений, вызывает сервис
+import {useEffect, useState} from "react";
+import type {IUser} from "../../models/IUser.ts";
+import UserComponent from "../user-component/UserComponent.tsx";
+import {getUsers} from "../../services/api.service.ts";
+
+const UsersComponent = () => {
+    const [users, setUsers] = useState<IUser[]>([])
+
+    useEffect(() => {
+        getUsers().then(respons => {
+            setUsers(respons)
+        })
+    }, [])
+
+    return (
+        <>
+            <div>
+                {users.map(user => <UserComponent key={user.id} item={user}/>)}
+            </div>
+        </>
+    )
+}
+export default UsersComponent;
+```
+
+__Изученные концепции/технологии:__
+
+- __Переменные окружения (Environment Variables):__ Использование `.env` файлов для хранения конфигурационных данных, таких как URL API, ключи и т.д.
+- __Vite Access:__ В Vite доступ к переменным окружения осуществляется через `import.meta.env` (например, `import.meta.env.VITE_API_URL`).
+- __Префикс `VITE_`:__ Для переменных окружения, которые должны быть доступны в клиентском коде через `import.meta.env`, необходимо использовать префикс `VITE_`.
+
+__Нюансы/Лучшие практики:__
+
+- __Безопасность:__ Никогда не храните конфиденциальные данные (например, API-ключи, которые должны быть скрыты от клиента) в переменных окружения с префиксом `VITE_`, так как они будут встроены в бандл и доступны в браузере.
+- __Гибкость:__ Переменные окружения позволяют легко переключать эндпоинты между различными средами (dev, production) без пересборки приложения.
+- __Исправлена ошибка `getUser`:__ В этой ветке URL для `getUser` теперь корректно использует слеш: `import.meta.env.VITE_API_URL + '/' + id`.
+
+
+
+
+
+## 📜 Отчет по домашнему заданию: hw/hw2/task1
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ Работа с Todo API, сервисный слой, переменные окружения, деструктуризация props.
+
+__Краткое описание:__ Первая задача второй домашки закрепляет концепции из lesson2: загрузка данных с API через сервисный слой, использование переменных окружения Vite, отображение списка задач (todos) с помощью map(). Особенность — деструктуризация вложенных полей props в TodoComponent.
+
+__Основные изменения/функциональность:__
+
+- Создана модель `ITodoModels` с полями: `userId`, `id`, `title`, `completed`.
+- В `.env` переменная `VITE_BASE_API_URL=https://jsonplaceholder.typicode.com`.
+- В `src/service/api.service.ts` создана функция `loadTodos()`, которая загружает todos с эндпоинта `/todos`.
+- Компонент `TodosComponent` загружает todos через `useEffect` и рендерит список.
+- Компонент `TodoComponent` отображает `id`, `title` и `completed` (преобразованный в строку).
+
+__Код:__
+
+```dotenv
+# .env
+VITE_BASE_API_URL=https://jsonplaceholder.typicode.com
+```
+
+```typescript
+// src/models/ITodoModels.ts — Модель Todo
+export interface ITodoModels {
+    userId: number;
+    id: number;
+    title: string;
+    completed: boolean;
+}
+```
+
+```typescript
+// src/service/api.service.ts — Сервисный слой
+import type {ITodoModels} from "../models/ITodoModels.ts";
+
+const endpointTodos = import.meta.env.VITE_BASE_API_URL + '/todos';
+
+const loadTodos = async (): Promise<ITodoModels[]> => {
+    return await fetch(endpointTodos)
+        .then(value => value.json());
+}
+
+export {loadTodos}
+```
+
+```typescript
+// src/component/todos-component/TodosComponent.tsx — Компонент-список
+import type {ITodoModels} from "../../models/ITodoModels.ts";
+import {useEffect, useState} from "react";
+import {loadTodos} from "../../service/api.service.ts";
+import {TodoComponent} from "../todo-component/TodoComponent.tsx";
+
+export const TodosComponent = () => {
+    const [todos, setTodos] = useState<ITodoModels[]>([]);
+    
+    useEffect(() => {
+        loadTodos().then(value => setTodos(value));
+    }, [])
+    
+    return (
+        <div>
+            {
+                todos.map(todo => <TodoComponent todo={todo} key={todo.id}/>)
+            }
+        </div>
+    )
+}
+```
+
+```typescript
+// src/component/todo-component/TodoComponent.tsx — Компонент-элемент
+import type {ITodoModels} from "../../models/ITodoModels.ts";
+import {FC} from "react";
+
+type PropType = {
+    todo: ITodoModels
+}
+
+export const TodoComponent:FC<PropType> = ({todo: {title, id, completed}})=> {
+    return (
+        <div>{id} {title} {completed.toString()}</div>
+    )
+}
+```
+
+__Изученные концепции/технологии:__
+
+- __Деструктуризация вложенных полей:__ `({todo: {title, id, completed}})` — извлечение полей из объекта `todo` прямо в параметрах функции.
+- __Boolean → String:__ `completed.toString()` — преобразование boolean в строку для отображения.
+- __Service Layer:__ Функция `loadTodos()` вынесена в сервис.
+- __Environment Variables:__ `import.meta.env.VITE_BASE_API_URL` для базового URL.
+- __useEffect + useState:__ Загрузка данных при монтировании компонента.
+- __TypeScript Interface:__ Модель `ITodoModels` для типизации данных.
+
+__Нюансы/Лучшие практики:__
+
+- Деструктуризация `({todo: {title, id, completed}})` делает код короче, но если нужно передать весь объект `todo` дальше, лучше деструктурировать внутри компонента.
+- `completed.toString()` — простой способ отобразить boolean как "true"/"false".
+- Ключ `key={todo.id}` — использование уникального `id` из данных (правильный подход).
+- Импорты `useEffect` и `useState` с разных строк — можно объединить: `import {useEffect, useState} from "react"`.
+
+
+
+
+
+## 📜 Отчет по домашнему заданию: hw/hw2/task2
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ Работа с Posts API, деструктуризация props, CSS-идентификаторы.
+
+__Краткое описание:__ Вторая задача второй домашки повторяет паттерн из task1, но работает с эндпоинтом `/posts`. Модель данных изменена на `IPostsModel` с полями `userId`, `id`, `title`, `body`. Особенность — деструктуризация всех полей объекта `post` прямо в параметрах компонента и использование CSS-идентификаторов (`id`) для стилизации.
+
+__Основные изменения/функциональность:__
+
+- Создана модель `IPostsModel` с полями: `userId`, `id`, `title`, `body`.
+- В `src/service/api.service.ts` функция `loadPosts()` загружает posts с эндпоинта `/posts`.
+- Компонент `PostsComponent` загружает посты и рендерит список.
+- Компонент `PostComponet` (обратите внимание на опечатку в названии) отображает все поля поста.
+- Добавлены CSS-файлы с селекторами по `id`.
+
+__Код:__
+
+```typescript
+// src/models/IPostsModel.ts — Модель Post
+export interface IPostsModel {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
+}
+```
+
+```typescript
+// src/service/api.service.ts — Сервисный слой
+import type {IPostsModel} from "../models/IPostsModel.ts";
+
+const endpointPosts = import.meta.env.VITE_BASE_API_URL + '/posts';
+
+const loadPosts = async ():Promise<IPostsModel[]> => {
+    return await fetch(endpointPosts)
+        .then(res => res.json());
+}
+
+export {loadPosts};
+```
+
+```typescript
+// src/components/posts-component/PostsComponent.tsx — Компонент-список
+import {useState} from "react";
+import {useEffect} from "react";
+import type {IPostsModel} from "../../models/IPostsModel.ts";
+import {loadPosts} from "../../service/api.service.ts";
+import {PostComponet} from "../post-component/PostComponet.tsx";
+import './PostsComponent.css'
+
+export const PostsComponent = () => {
+    const [posts, setPosts] = useState<IPostsModel[]>([]);
+
+    useEffect(() => {
+        loadPosts().then(value => setPosts(value));
+    }, [])
+
+    return(
+        <div id={'main'}>
+            {
+                posts.map(post => <PostComponet post={post} key={post.id}/> )
+            }
+        </div>
+    )
+}
+```
+
+```typescript
+// src/components/post-component/PostComponet.tsx — Компонент-элемент
+import type {FC} from "react";
+import type {IPostsModel} from "../../models/IPostsModel.ts"
+import './PostComponet.css'
+
+type PropType = {
+    post: IPostsModel;
+}
+
+export const PostComponet:FC<PropType> = ({post: {userId, id, title, body}}) => {
+    return(
+        <div id={'head'}>{userId} {id} {title} {body}</div>
+    )
+}
+```
+
+__Изученные концепции/технологии:__
+
+- __Деструктуризация всех полей объекта:__ `({post: {userId, id, title, body}})` — все поля извлечены сразу в параметрах функции.
+- __CSS-идентификаторы (`id`):__ Использование `id={'main'}` и `id={'head'}` для стилизации (вместо className).
+- __Работа с другим API эндпоинтом:__ `/posts` вместо `/todos`.
+- __Повторяющийся паттерн:__ Сервис → useEffect → useState → map() → дочерний компонент.
+
+__Нюансы/Лучшие практики:__
+
+- ⚠️ __Опечатка в названии компонента:__ `PostComponet` (пропущена буква `n`). В реальном проекте лучше исправить на `PostComponent`.
+- __Деструктуризация всех полей:__ Удобно, но если структура модели изменится, нужно будет обновлять и параметры функции. Альтернатива — деструктуризация внутри компонента: `const {userId, id, title, body} = post;`.
+- __Использование `id` для стилизации:__ `id` должен быть уникальным на странице. Если компонентов много, лучше использовать `className`.
+- __Отсутствие CSS-файлов в анализе:__ В ветке есть `PostsComponent.css` и `PostComponet.css`, но их содержимое не было прочитано (возможно, пустые или с базовыми стилями).
+
+
+
+
+
+## 📜 Отчет по домашнему заданию: hw/hw2/task3
+
+__Дата:__ 8 июля 2026 г.
+
+__Тема:__ Работа с Comments API, деструктуризация props, семантические заголовки.
+
+__Краткое описание:__ Третья задача второй домашки продолжает работать с API jsonplaceholder, но теперь загружает комментарии (эндпоинт `/comments`). Модель данных `ICommentsModel` содержит 5 полей. Особенность — использование семантических HTML-заголовков (h1, h2, h3) для визуального разделения информации и `className` вместо `id` для стилизации.
+
+__Основные изменения/функциональность:__
+
+- В `.env` добавлена переменная `VITE_API_ENDPOINT_COMMENTS`.
+- Создана модель `ICommentsModel` с полями: `postId`, `id`, `name`, `email`, `body`.
+- В `api.service.ts` функция `loadComments()` загружает комментарии.
+- Компонент `CommentsComponent` загружает и отображает список комментариев.
+- Компонент `CommentComponent` отображает все поля комментария с использованием разных уровней заголовков.
+
+__Код:__
+
+```dotenv
+# .env
+VITE_API_ENDPOINT_COMMENTS=https://jsonplaceholder.typicode.com
+```
+
+```typescript
+// src/model/ICommentsModel.ts — Модель Comment
+export interface ICommentsModel {
+    postId: number;
+    id: number;
+    name: string;
+    email: string;
+    body: string;
+}
+```
+
+```typescript
+// src/service/api.service.ts — Сервисный слой
+import type {ICommentsModel} from "../model/ICommentsModel.ts";
+
+const endpointComments = import.meta.env.VITE_API_ENDPOINT_COMMENTS + '/comments';
+
+const loadComments = async ():Promise<ICommentsModel[]> => {
+    return await fetch(endpointComments)
+        .then(res => res.json());
+}
+
+export {loadComments};
+```
+
+```typescript
+// src/components/comments-component/CommentsComponent.tsx — Компонент-список
+import {loadComments} from "../../service/api.service.ts";
+import {CommentComponent} from "../comment-component/CommentComponent.tsx";
+import {useEffect, useState} from "react";
+import type {ICommentsModel} from "../../model/ICommentsModel.ts";
+import "./CommentsComponent.css";
+
+export const CommentsComponent = () => {
+    const [comments, setComments] = useState<ICommentsModel[]>([]);
+
+    useEffect(() => {
+        loadComments().then(value => setComments(value))
+    }, [])
+    
+    return(
+        <div id={"main"}>
+            {
+                comments.map(coment => (<CommentComponent comment={coment} key={coment.id}/>))
+            }
+        </div>
+    )
+}
+```
+
+```typescript
+// src/components/comment-component/CommentComponent.tsx — Компонент-элемент
+import type {FC} from "react";
+import type {ICommentsModel} from "../../model/ICommentsModel.ts";
+
+type PropType = {
+    comment: ICommentsModel;
+}
+
+export const CommentComponent:FC<PropType> = ({comment: {postId, id, name, email, body}}) => {
+    return(
+        <div className={"head"}>
+            <h1>Posts: {postId}</h1>
+            <h2>ID: {id}</h2>
+            <h3>Name: {name}</h3>
+            <h3>Email: {email}</h3>
+            <p>Text: {body}</p>
+        </div>
+    )
+}
+```
+
+__Изученные концепции/технологии:__
+
+- __Работа с Comments API:__ Эндпоинт `/comments` возвращает массив комментариев с полями `postId`, `id`, `name`, `email`, `body`.
+- __Деструктуризация всех полей:__ `({comment: {postId, id, name, email, body}})` — все 5 полей извлечены в параметрах функции.
+- __Семантические заголовки:__ Использование `h1`, `h2`, `h3` для визуальной иерархии информации (Posts → ID → Name/Email → Text).
+- __className вместо id:__ В `CommentComponent` используется `className={"head"}` (вместо `id={'head'}`), что позволяет использовать стиль для множества элементов.
+- __Новая переменная окружения:__ `VITE_API_ENDPOINT_COMMENTS` — демонстрация того, что у каждого API может быть своя переменная окружения.
+
+__Нюансы/Лучшие практики:__
+
+- __Семантические заголовки:__ Использование `h1`-`h3` улучшает SEO и доступность (accessibility), но важно соблюдать иерархию (не пропускать уровни).
+- __className для повторяющихся элементов:__ Если на странице много комментариев, использование `className` предпочтительнее `id`, так как `id` должен быть уникальным.
+- __Переменные окружения:__ Можно использовать одну общую переменную `VITE_BASE_API_URL` и добавлять эндпоинты в сервисе, а можно создавать отдельные переменные для каждого API (как здесь). Оба подхода допустимы.
+- __Опечатка в переменной:__ `comments.map(coment => ...)` — переменная `coment` пропущена буква `m` (должно быть `comment`). Это работает, но снижает читаемость.
+
+
+
+
+
+📜 Отчет по домашнему заданию: hw/hw2/task4
+Дата: 10 июля 2026 г.
+
+Тема: Работа с разными API (DummyJSON), обработка вложенных ответов, объединение компонентов.
+
+Краткое описание: Четвертая задача второй домашки — это консолидация предыдущих задач с переходом на другой API (DummyJSON). Главное отличие — API возвращает не массив, а объект с полями posts, todos, comments. Нужно извлекать данные из вложенных полей. В App.tsx все три компонента отображаются одновременно.
+
+Основные изменения/функциональность:
+
+В .env изменен VITE_API_BASE_URL на https://dummyjson.com.
+Созданы модели IPostResponseDymmeyjson и IPostResponseDymmeyjsonTodos для обработки вложенных ответов.
+В api.service.ts функции loadPosts() и loadTodos() теперь извлекают данные из вложенных полей (response.posts, response.todos).
+CommentsComponent по-прежнему использует старый API (jsonplaceholder), так как DummyJSON не имеет эндпоинта /comments.
+В App.tsx все три компонента (PostsComponent, TodosComponent, CommentsComponent) отображаются одновременно.
+Код:
+
+
+# .env
+VITE_API_BASE_URL=https://dummyjson.com
+
+// src/models/IPostResponseDymmeyjson.ts — Модель ответа для posts
+import type {IPostsModel} from "./IPostsModel.ts";
+
+export interface IPostResponseDymmeyjson {
+    posts: IPostsModel[];
+    total: number;
+    skip: number;
+    limit: number;
+}
+
+// src/models/IPostResponseDymmeyjsonTodos.ts — Модель ответа для todos
+import type {ITodoModels} from "./ITodoModels";
+
+export interface IPostResponseDymmeyjsonTodos {
+    todos: ITodoModels[];
+    id: number;
+    todo: string;
+    completed: boolean;
+    userId: number;
+}
+
+// src/service/api.service.ts — Сервисный слой
+import type {IPostResponseDymmeyjson} from "../models/IPostResponseDymmeyjson";
+import type {IPostsModel} from "../models/IPostsModel";
+import type {IPostResponseDymmeyjsonTodos} from "../models/IPostResponseDymmeyjsonTodos";
+import type {ITodoModels} from "../models/ITodoModels";
+import type {ICommentsModel} from "../models/ICommentsModel";
+
+const endpointPosts = import.meta.env.VITE_API_BASE_URL + '/posts';
+const endpointTodos = import.meta.env.VITE_API_BASE_URL + '/todos';
+const endpointComments = import.meta.env.VITE_API_ENDPOINT_COMMENTS + '/comments';
+
+const loadPosts = async ():Promise<IPostsModel[]> => {
+    const responsePosts: IPostResponseDymmeyjson = await fetch(endpointPosts)
+        .then(value => value.json());
+    return responsePosts.posts;  // извлечение из вложенного поля
+}
+
+const loadTodos = async ():Promise<ITodoModels[]> => {
+    const responseTodos: IPostResponseDymmeyjsonTodos = await fetch(endpointTodos)
+        .then(value => value.json());
+    return responseTodos.todos;  // извлечение из вложенного поля
+}
+
+const loadComments = async ():Promise<ICommentsModel[]> => {
+    const responseComments = await fetch(endpointComments)
+        .then(value => value.json());
+    return responseComments.comments;
+}
+
+export {loadComments, loadPosts, loadTodos};
+
+// src/components/todos-component/TodosComponent.tsx
+import {useEffect, useState} from "react";
+import type {ITodoModels} from "../../models/ITodoModels";
+import {loadTodos} from "../../service/api.service";
+import {TodoComponent} from "../todo-component/TodoComponent";
+
+export const TodosComponent = () => {
+    const [todos, setTodos] = useState<ITodoModels[]>([])
+
+    useEffect(() => {
+        loadTodos().then(value => setTodos(value))
+    }, [])
+
+    return (
+        <div>
+            {
+                todos.map(todo => <TodoComponent todo={todo} key={todo.id}/>)
+            }
+        </div>
+    )
+}
+
+// src/components/posts-component/PostsComponent.tsx
+import {useEffect, useState} from "react";
+import type {IPostsModel} from "../../models/IPostsModel.ts";
+import {loadPosts} from "../../service/api.service.ts";
+import {PostComponent} from "../post-component/PostComponent.tsx";
+
+export const PostsComponent = () => {
+    const [posts, setPosts] = useState<IPostsModel[]>([])
+
+    useEffect(() => {
+        loadPosts().then(value => setPosts(value))
+    }, [])
+
+    return(
+        <div>
+            {
+                posts.map(post => <PostComponent post={post} key={post.id}/>)
+            }
+        </div>
+    )
+}
+
+// src/components/comments-component/CommentsComponent.tsx
+import {useEffect, useState} from "react";
+import type {ICommentsModel} from "../../models/ICommentsModel";
+import {loadComments} from "../../service/api.service";
+import {CommentComponent} from "../comment-component/CommentComponent";
+
+export const CommentsComponent = () => {
+    const [comments, setComments] = useState<ICommentsModel[]>([])
+
+    useEffect(() => {
+        loadComments().then(value => setComments(value))
+    }, [])
+
+    return (
+        <div>
+            {
+                comments.map(comment => <CommentComponent comment={comment} key={comment.id}/>)
+            }
+        </div>
+    )
+}
+
+// src/App.tsx — Все компоненты вместе
+import "./App.css"
+import {TodosComponent} from "./components/todos-component/TodosComponent.tsx";
+import {PostsComponent} from "./components/posts-component/PostsComponent.tsx";
+import {CommentsComponent} from "./components/comments-component/CommentsComponent";
+
+function App() {
+  return (
+      <>
+          <PostsComponent/>
+          <TodosComponent/>
+          <CommentsComponent/>
+      </>
+  )
+}
+
+export default App
+Изученные концепции/технологии:
+
+Работа с DummyJSON API: Новый API, который возвращает объекты с вложенными полями (posts, todos, comments).
+Обработка вложенных ответов: Извлечение данных из response.posts и response.todos.
+Объединение компонентов: В App.tsx все три компонента отображаются одновременно.
+Адаптация к разным API: CommentsComponent использует старый API (jsonplaceholder), так как DummyJSON не имеет эндпоинта /comments.
+Нюансы/Лучшие практики:
+
+Обработка вложенных ответов: Важно знать структуру API и извлекать нужные данные. DummyJSON оборачивает массивы в объекты с метаданными (total, skip, limit).
+Объединение компонентов: В реальном приложении лучше использовать роутинг (React Router) для разделения страниц, а не отображать все компоненты сразу.
+Ошибка в модели: В IPostResponseDymmeyjsonTodos поля id, todo, completed, userId не должны быть на верхнем уровне — они должны быть внутри todos. Это ошибка в модели.
+Опечатка в названии: IPostResponseDymmeyjson — опечатка в слове "Dummy" (должно быть Dummy).
+
+
+
+
+
+## 📜 Отчет по домашнему заданию: hw/hw2/task5
+
+__Дата:__ 10 июля 2026 г.
+
+__Тема:__ Работа с Products API (DummyJSON), сложные вложенные модели, CSS-модули, условный рендеринг.
+
+__Краткое описание:__ Пятая задача второй домашки — самая сложная. Она работает с эндпоинтом `/products` API DummyJSON, который возвращает массив продуктов с очень сложной структурой. Модель `IProductsModel` содержит 15 полей, включая вложенные объекты (`dimensions`, `reviews`, `meta`) и массивы (`images`, `tags`). Компонент `ProductComponent` отображает всю информацию о продукте с использованием CSS-модулей для стилизации.
+
+__Основные изменения/функциональность:__
+
+- В `.env` переменная `VITE_API_BASE_URL=https://dummyjson.com`.
+- Создана сложная модель `IProductsModel` с полями: `id`, `title`, `description`, `category`, `price`, `discountPercentage`, `rating`, `stock`, `tags`, `brand`, `sku`, `weight`, `dimensions`, `warrantyInformation`, `shippingInformation`, `availabilityStatus`, `reviews`, `returnPolicy`, `minimumOrderQuantity`, `meta`, `images`, `thumbnail`.
+- В `api.service.ts` функция `loadProducts()` загружает продукты с эндпоинта `/products` и извлекает массив из `response.products`.
+- Компонент `ProductsComponent` загружает и отображает список продуктов с заголовком "Our Products".
+- Компонент `ProductComponent` отображает всю информацию о продукте: заголовок, бренд, изображения (thumbnail + дополнительные), описание, цену, скидку, рейтинг, количество на складе, статус, категорию, SKU, вес, размеры, теги, информацию о доставке, отзывы, метаданные (даты создания/обновления, штрихкод, QR-код).
+
+__Код:__
+
+```typescript
+// src/models/IProductsModel.ts — Сложная модель Product
+export interface IDimensions {
+    width: number;
+    height: number;
+    depth: number;
+}
+
+export interface IReview {
+    rating: number;
+    comment: string;
+    date: string;
+    reviewerName: string;
+    reviewerEmail: string;
+}
+
+export interface IProductMeta {
+    createdAt: string;
+    updatedAt: string;
+    barcode: string;
+    qrCode: string;
+}
+
+export interface IProductsModel {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    price: number;
+    discountPercentage: number;
+    rating: number;
+    stock: number;
+    tags: string[];
+    brand: string;
+    sku: string;
+    weight: number;
+    dimensions: IDimensions;
+    warrantyInformation: string;
+    shippingInformation: string;
+    availabilityStatus: string;
+    reviews: IReview[];
+    returnPolicy: string;
+    minimumOrderQuantity: number;
+    meta: IProductMeta;
+    images: string[];
+    thumbnail: string;
+}
+```
+
+```typescript
+// src/models/IProductResponseDummyjson.ts — Модель ответа
+import type {IProductsModel} from "./IProductsModel.ts";
+
+export interface IProductResponseDummyjson {
+    products: IProductsModel[];
+    total: number;
+    skip: number;
+    limit: number;
+}
+```
+
+```typescript
+// src/service/api.service.ts — Сервисный слой
+import type {IProductsModel} from "../models/IProductsModel";
+import type {IProductResponseDummyjson} from "../models/IProductResponseDymmeyjson";
+
+const endpointProducts = import.meta.env.VITE_API_BASE_URL + '/products';
+
+const loadProducts = async (): Promise<IProductsModel[]> => {
+    const responseProducts = await fetch(endpointProducts);
+    const data: IProductResponseDummyjson = await responseProducts.json();
+    return data.products;
+}
+
+export {loadProducts};
+```
+
+```typescript
+// src/components/products-component/ProductsComponent.tsx — Компонент-список
+import {useEffect, useState} from "react";
+import type {IProductsModel} from "../../models/IProductsModel";
+import {loadProducts} from "../../service/api.service";
+import {ProductComponent} from "../product-component/ProductComponent";
+import styles from './ProductsComponent.module.css';
+
+export const ProductsComponent = () => {
+    const [products, setProducts] = useState<IProductsModel[]>([])
+
+    useEffect(() => {
+        loadProducts().then(value => setProducts(value))
+    }, []);
+
+    return(
+        <div className={styles.productsContainer}>
+        <h1 className={styles.productsTitle}>Our Products</h1>
+            {
+                products.map(product => <ProductComponent product={product} key={product.id}/>)
+            }
+        </div>
+    )
+}
+```
+
+```typescript
+// src/components/product-component/ProductComponent.tsx — Компонент-элемент
+import type { IProductsModel } from '../../models/IProductsModel'
+import type { FC } from "react";
+import './ProductComponent.module.css';
+
+type ProductComponentProps = {
+    product: IProductsModel;
+}
+
+export const ProductComponent: FC<ProductComponentProps> = ({ product }) => {
+    return (
+        <div className="product-card">
+            <div className="product-header">
+                <h1>{product.id}. {product.title}</h1>
+                <span className="brand">{product.brand}</span>
+            </div>
+
+            <div className="product-images">
+                <img src={product.thumbnail} alt={product.title} className="thumbnail"/>
+                <div className="additional-images">
+                    {product.images.map((image, index) => (
+                        <img key={index} src={image} alt={`${product.title} ${index + 1}`} />
+                    ))}
+                </div>
+            </div>
+
+            <div className="product-info">
+                <p className="description">{product.description}</p>
+
+                <div className="price-section">
+                    <span className="price">${product.price}</span>
+                    {product.discountPercentage > 0 && (
+                        <span className="discount">-{product.discountPercentage}%</span>
+                    )}
+                </div>
+
+                <div className="product-stats">
+                    <span className="rating">Rating: {product.rating}/5</span>
+                    <span className="stock">In Stock: {product.stock}</span>
+                    <span className="status">{product.availabilityStatus}</span>
+                </div>
+
+                <div className="product-details">
+                    <p>Category: {product.category}</p>
+                    <p>SKU: {product.sku}</p>
+                    <p>Weight: {product.weight}g</p>
+                    <div className="dimensions">
+                        <p>Dimensions:</p>
+                        <ul>
+                            <li>Width: {product.dimensions.width}cm</li>
+                            <li>Height: {product.dimensions.height}cm</li>
+                            <li>Depth: {product.dimensions.depth}cm</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div className="tags">
+                    {product.tags.map((tag, index) => (
+                        <span key={index} className="tag">#{tag}</span>
+                    ))}
+                </div>
+
+                <div className="shipping-info">
+                    <p>{product.shippingInformation}</p>
+                    <p>Minimum Order: {product.minimumOrderQuantity} units</p>
+                    <p>{product.warrantyInformation}</p>
+                    <p>{product.returnPolicy}</p>
+                </div>
+
+                <div className="reviews">
+                    <h3>Reviews</h3>
+                    {product.reviews.map((review, index) => (
+                        <div key={index} className="review">
+                            <div className="review-header">
+                                <span className="reviewer">{review.reviewerName}</span>
+                                <span className="review-rating">{review.rating}/5</span>
+                                <span className="review-date">
+                                    {new Date(review.date).toLocaleDateString()}
+                                </span>
+                            </div>
+                            <p className="review-comment">{review.comment}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="meta-info">
+                    <small>Created: {new Date(product.meta.createdAt).toLocaleDateString()}</small>
+                    <small>Updated: {new Date(product.meta.updatedAt).toLocaleDateString()}</small>
+                    <p>Barcode: {product.meta.barcode}</p>
+                    <img src={product.meta.qrCode} alt="QR Code" className="qr-code"/>
+                </div>
+            </div>
+        </div>
+    );
+};
+```
+
+__Изученные концепции/технологии:__
+
+- __Сложные вложенные модели:__ Модель `IProductsModel` содержит 15 полей, включая вложенные объекты (`dimensions`, `reviews`, `meta`) и массивы (`images`, `tags`).
+- __CSS-модули:__ Использование `styles.productsContainer` и `styles.productsTitle` для изоляции стилей компонента.
+- __Условный рендеринг:__ `{product.discountPercentage > 0 && (<span className="discount">...</span>)}` — отображение скидки только если она больше 0.
+- __Работа с датами:__ `new Date(review.date).toLocaleDateString()` — преобразование строки даты в локальный формат.
+- __Отображение изображений:__ Главное изображение (`thumbnail`) и дополнительные изображения из массива `images`.
+- __Отзывы:__ Отображение списка отзывов с именем рецензента, рейтингом, датой и комментарием.
+
+__Нюансы/Лучшие практики:__
+
+- __CSS-модули:__ Использование CSS-модулей (`styles`) позволяет изолировать стили и избежать конфликтов имен классов.
+- __Условный рендеринг:__ Условное отображение элементов (например, скидки) улучшает пользовательский опыт.
+- __Опечатка в названии:__ `IProductResponseDymmeyjson` — опечатка в слове "Dummy" (должно быть `Dummy`).
+- __Отсутствие обработки ошибок:__ Нет обработки ошибок при загрузке изображений (если URL невалидный, изображение не загрузится).
+- __Отсутствие ключей в массивах:__ В массивах `images` и `tags` используются индексы (`key={index}`), что допустимо, но лучше использовать уникальные идентификаторы, если они есть.
+
+
+
+
+
+## 📜 Отчет по лекции: lessons/lesson3/map
+
+__Дата:__ 10 июля 2026 г.
+
+__Тема:__ Использование метода `map()` для рендеринга списка продуктов.
+
+__Краткое описание:__ Лекция демонстрирует базовое использование метода `map()` в JSX для отображения массива продуктов. Каждый продукт представлен объектом с полями `title`, `price` и `image`. Компонент `MyProduct` отображает отдельный продукт.
+
+__Основные изменения/функциональность:__
+
+- В `src/data/productsList.ts` создан массив `products` с объектами фруктурой: `title` (string), `price` (number), `image` (string URL).
+- Создана модель `IProduct` в `src/models/IProduct.ts` для типизации массива.
+- Компонент `MyProduct` в `src/components/my-product/MyProduct.tsx` принимает проп `product` и отображает его данные.
+- В `src/App.tsx` массив `products` импортируется и маппится в компоненты `MyProduct`.
+
+__Код:__
+
+```typescript
+// src/models/IProduct.ts — Модель продукта
+export interface IProduct {
+    title: string;
+    price: number;
+    image: string;
+}
+```
+
+```typescript
+// src/data/productsList.ts — Данные продуктов
+import type {IProduct} from "../models/IProduct.ts";
+
+export const products: IProduct[] = [
+    {
+        title: "Apple",
+        price: 1.2,
+        image: "https://cdn.pixabay.com/photo/2020/05/08/18/16/healthy-5146826_1280.jpg",
+    },
+    {
+        title: "Banana",
+        price: 0.8,
+        image: "https://is.gd/adgU3j",
+    },
+    {
+        title: "Cherry",
+        price: 2.5,
+        image: "https://share.google/images/lPW2eRTSidhkaKgfS",
+    },
+    {
+        title: "Grapes",
+        price: 3.0,
+        image: "https://is.gd/NWRB5p",
+    },
+    {
+        title: "Orange",
+        price: 1.5,
+        image: "https://is.gd/iuQN8i",
+    },
+];
+```
+
+```typescript
+// src/components/my-product/MyProduct.tsx — Компонент продукта
+import type {FC} from "react";
+import type {IProduct} from "../models/IProduct.ts";
+
+type MyProductProps = {
+    product: IProduct;
+}
+
+const MyProduct: FC<MyProductProps> = ({product}) => {
+    return (
+        <div>
+            <h2>{product.title}</h2>
+            <p>Price: ${product.price}</p>
+            <img src={product.image} alt={product.title} />
+        </div>
+    );
+};
+
+export default MyProduct;
+```
+
+```typescript
+// src/App.tsx — Корневой компонент
+import './App.css'
+import {products} from "./data/productsList.ts";
+import MyProduct from "./components/my-product/MyProduct.tsx";
+
+function App() {
+  return (
+    <>
+      {
+        products.map((product, index) => <MyProduct key={index} product={product}/>)
+      }
+    </>
+  )
+}
+
+export default App
+```
+
+__Изученные концепции/технологии:__
+
+- __Метод `map()` в JSX:__ Использование `map()` для трансформации массива данных в массив JSX-элементов.
+- __Ключ `key`:__ Каждому элементу присваивается уникальный `key` (в данном случае `index`), что необходимо React для эффективного обновления DOM.
+- __Импорт/Экспорт модулей:__ Стандартный синтаксис ES-модулей для организации кода.
+- __JSX:__ Синтаксис для описания пользовательского интерфейса.
+- __Тег `<img>`:__ Отображение изображений с атрибутами `src` и `alt`.
+
+__Нюансы/Лучшие практики:__
+
+- Использование `index` в качестве `key` — это распространенная практика для статических списков, но для динамических списков (с добавлением/удалением элементов) лучше использовать уникальные идентификаторы (например, `id` из данных).
+- В данном случае данные статические, поэтому использование `index` допустимо.
+- Альтернативный подход — добавить `id` в каждый объект продукта и использовать его в качестве ключа.
+
+
+
+
+
+## 📜 Отчет по лекции: lessons/lesson3_1/basic-router
+
+__Дата:__ 10 июля 2026 г.
+
+__Тема:__ React Router DOM (createBrowserRouter), вложенные маршруты, Layout с Outlet.
+
+__Краткое описание:__ Лекция посвящена настройке клиентской маршрутизации в React с помощью библиотеки React Router DOM (v6.4+). Используется современный подход `createBrowserRouter`. Созданы три страницы (Home, Page A, Page B), обернутые в `MainLayout` с навигационным меню. Маршрутизация настраивается в `src/main.tsx`, а `App.tsx` остается пустым.
+
+__Основные изменения/функциональность:__
+
+- В `package.json` добавлена зависимость `react-router-dom`.
+- В `src/main.tsx` создан роутер с помощью `createBrowserRouter` с корневым путем `/` и вложенными дочерними маршрутами.
+- Создан компонент `MainLayout` с импортом `Menu` и `<Outlet/>` для отображения дочерних страниц.
+- Созданы три страницы: `HomePage` (`/`), `PageA` (`/a`), `PageB` (`/b`).
+- `App.tsx` теперь пустой — вся маршрутизация вынесена в `main.tsx`.
+
+__Код:__
+
+```typescript
+// src/main.tsx — Настройка роутинга
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import MainLayout from "./layouts/MainLayout.tsx"
+import PageA from "./pages/PageA.tsx";
+import PageB from "./pages/PageB.tsx";
+import HomePage from "./pages/HomePage.tsx";
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <MainLayout/>,
+        children: [
+            {path: '', element: <HomePage/>},
+            {path: 'a', element: <PageA/>},
+            {path: 'b', element: <PageB/>},
+        ]
+    }
+])
+
+createRoot(document.getElementById('root')!)
+    .render(<RouterProvider router={router}/>);
+```
+
+```typescript
+// src/layouts/MainLayout.tsx — Layout с Menu и Outlet
+import Menu from "../components/menu/Menu.tsx";
+import {Outlet} from "react-router-dom";
+
+const MainLayout = () => {
+    return(
+        <div>
+            <Menu/>
+                <hr/>
+            <Outlet/>  {/* Здесь отображаются дочерние страницы */}
+        </div>
+    )
+}
+
+export default MainLayout
+```
+
+```typescript
+// src/pages/HomePage.tsx
+const HomePage = () => {
+    return(<div>Home Page</div>)
+}
+export default HomePage
+```
+
+```typescript
+// src/pages/PageA.tsx
+const PageA = () => {
+    return(<div>Page A Lorem ipsum...</div>)
+}
+export default PageA
+```
+
+```typescript
+// src/pages/PageB.tsx
+const PageB = () => {
+    return(<div>Page B Lorem ipsum...</div>)
+}
+export default PageB
+```
+
+```typescript
+// src/App.tsx — Пустой (маршрутизация в main.tsx)
+function App() {
+  return (<></>)
+}
+export default App
+```
+
+__Изученные концепции/технологии:__
+
+- __createBrowserRouter:__ Современный способ создания роутера в React Router v6.4+, использующий History API браузера.
+- __RouterProvider:__ Компонент, который принимает созданный роутер и передает его всему приложению.
+- __Вложенные маршруты (children):__ Дочерние маршруты отображаются внутри родительского компонента через `<Outlet/>`.
+- __Outlet:__ Специальный компонент React Router, который отображает дочерний маршрут внутри Layout.
+- __Перенос логики из App.tsx:__ Теперь вся маршрутизация настраивается в `main.tsx`, а `App.tsx` остается пустым.
+
+__Нюансы/Лучшие практики:__
+
+- React Router v6.4+ рекомендует `createBrowserRouter` вместо старого `<BrowserRouter>`.
+- `<Outlet/>` — ключевой элемент для создания Layout-оберток.
+- Пустой `path: ''` в дочерних маршрутах означает страницу по пути родителя (`/`).
+
+
+
+
+
+## 📜 Отчет по лекции: lessons/lesson3_2/router-demo
+
+__Дата:__ 10 июля 2026 г.
+
+__Тема:__ Вынос роутинга в отдельный модуль, создание архитектурной структуры (маршруты, сервисы, константы), типизация, компонент навигационного меню.
+
+__Краткое описание:__ Эта лекция демонстрирует, как масштабировать и правильно структурировать приложение с роутингом. Вместо того чтобы хранить настройки роутинга в `main.tsx` или `App.tsx`, они выносятся в отдельный файл `src/router/routes.tsx`. Вводятся папки `src/constans` (для URL-адресов) и `src/services` (сервисный слой API), а также типизированные модели пользователей в `src/model/`. В меню навигации используется компонент `Link`.
+
+__Основные изменения/функциональность:__
+
+- __Новая структура папок:__
+
+  - `src/router/` — конфигурация маршрутизатора.
+  - `src/constans/` — константы (включая API URL-адреса).
+  - `src/services/` — слой работы с сетью (fetch-запросы).
+  - `src/model/` — TypeScript интерфейсы моделей.
+
+- __Вынос роутера:__ Вся конфигурация маршрутов перенесена в `src/router/routes.tsx`. В `src/main.tsx` импортируется готовый объект `routes` и передается в `<RouterProvider/>`.
+
+- __Слой сервисов:__ Создан `src/services/api.service.ts` с объектом `userService`, содержащим асинхронный метод `getUsers()`, типизированный через `Promise<IUser[]>`.
+
+- __Константы путей:__ В `src/constans/urls.ts` вынесен базовый URL `https://jsonplaceholder.typicode.com` и эндпоинты.
+
+- __Типизированный рендеринг списка пользователей:__ `UsersPages` рендерит `UsersComponent`, который через хук `useEffect` обращается к `userService.getUsers()`, сохраняет пользователей в `state` и мапит их в дочерние компоненты `UserComponent`, отображая `username`.
+
+---
+
+### __Код файлов лекции:__
+
+```typescript
+// src/router/routes.tsx — Вынесенная конфигурация роутера
+import {createBrowserRouter} from "react-router-dom";
+import {Layout} from "../layouts/Layout";
+import {HomePage} from "../pages/HomePage";
+import {UsersPages} from "../pages/UsersPages";
+import {PostsPage} from "../pages/PostsPage";
+
+export const routes = createBrowserRouter([
+    {
+        path: '', element: <Layout/>,
+        children: [
+            {path: '', element: <HomePage/>},
+            {path: 'users', element: <UsersPages/>},
+            {path: 'posts', element: <PostsPage/>}
+        ]
+    }
+]);
+```
+
+```typescript
+// src/main.tsx — Чистый запуск приложения
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import {RouterProvider} from "react-router-dom";
+import {routes} from "./router/routes.tsx";
+
+createRoot(document.getElementById('root')!)
+    .render(<RouterProvider router={routes}/>);
+```
+
+```typescript
+// src/constans/urls.ts — Изоляция API путей
+const baseUrl = 'https://jsonplaceholder.typicode.com'
+
+const urls = {
+    users: {
+        allUsers: baseUrl + '/users',
+        byId: (id: number) => {
+            return baseUrl + '/' + id
+        }
+    },
+    posts: {}
+}
+
+export { urls }
+```
+
+```typescript
+// src/services/api.service.ts — Сервисный слой API
+import type {IUser} from "../model/IUser.ts";
+import {urls} from "../constans/urls.ts";
+
+const userService = {
+    getUsers: async (): Promise<IUser[]> => {
+        return await fetch(urls.users.allUsers)
+            .then(value => value.json())
+    }
+}
+
+export default userService;
+```
+
+```typescript
+// src/components/users/UsersComponent.tsx — Компонент списка пользователей
+import {useEffect, useState} from "react";
+import type {IUser} from "../../model/IUser.ts";
+import userService from "../../services/api.service.ts";
+import UserComponent from './UserComponent';
+
+const UsersComponent = () => {
+    const [users, setUsers] = useState<IUser[]>([])
+
+    useEffect(() => {
+        userService.getUsers().then((allUsers: IUser[]) => {
+            setUsers(allUsers)
+        })
+    }, []);
+
+    return(
+        <div>
+            {
+                users.map(user => <UserComponent item={user} key={user.id}/>)
+            }
+        </div>
+    )
+}
+
+export default UsersComponent;
+```
+
+```typescript
+// src/components/users/UserComponent.tsx — Компонент одного пользователя
+import type {FC} from "react";
+import type {IUser} from "../../model/IUser.ts";
+
+type UserTypeProps = {
+    item: IUser
+}
+const UserComponent: FC<UserTypeProps> = ({item}) => {
+    return(
+        <div>
+            {item.username}
+        </div>
+    )
+}
+
+export default UserComponent;
+```
+
+---
+
+### __Изученные концепции/технологии:__
+
+1. __Модульность роутинга:__ Разделение ответственности (Separation of Concerns). `main.tsx` отвечает только за монтирование React-приложения, а `routes.tsx` — за конфигурацию путей.
+2. __Архитектура API URL:__ Хранение URL-адресов в объекте `urls` предотвращает "магические строки" в коде и упрощает изменение путей (например, при переходе на тестовый/продакшн сервер).
+3. __Разделение на Layouts и Pages:__ Страницы (`src/pages/`) представляют собой полноценные экраны (экраны пользователей, постов, домашний), а макеты (`src/layouts/`) обеспечивают общую структуру (шапку, подвал, меню), переиспользуемую между страницами с помощью `<Outlet />`.
+4. __Типизация API:__ Использование асинхронной функции `Promise<IUser[]>` гарантирует, что возвращаемые сервером данные соответствуют определенной структуре TypeScript, предотвращая ошибки при обращении к свойствам объекта (например, `item.username`).
+
+### __Нюансы/Лучшие практики:__
+
+- Использование `export const routes` и его импорт в `main.tsx` — это стандарт индустрии для создания расширяемых приложений.
+- Всегда разделяйте API эндпоинты в константы. Если бэкенд поменяет префикс `/users` на `/api/v1/users`, изменение потребуется внести только в одном файле `urls.ts`.
+- При рендеринге списков обязательно указывать `key={user.id}` (идентификатор пользователя с бэкенда), а не индекс массива, так как список динамически загружается с сервера.
+
+
+
+
+
+## 📜 Отчет по лекции: lessons/lesson3_3/state-forward
+
+__Дата:__ 10 июля 2026 г.
+
+__Тема:__ Передача состояния между компонентами через URL-параметры и использование хука `useSearchParams` из React Router.
+
+__Краткое описание:__ Лекция демонстрирует два способа передачи состояния между компонентами:
+
+1. Через URL-параметры с использованием хука `useSearchParams`
+2. Через объект состояния с использованием хука `useLocation`
+
+__Основные изменения/функциональность:__
+
+- В `src/router/routes.tsx` добавлен маршрут для страницы деталей пользователя (`users/details`).
+
+- В `src/components/users/UserComponent.tsx` реализованы два способа передачи состояния:
+
+  - Через `Link` (декларативный подход)
+  - Через `useNavigate` (императивный подход)
+
+- В `src/pages/SingleUserDetailsPage.tsx` реализована страница деталей пользователя, которая получает состояние через `useLocation`.
+
+__Код:__
+
+```typescript
+// src/router/routes.tsx — Настройка маршрутов
+import {createBrowserRouter} from "react-router-dom";
+import {Layout} from "../layouts/Layout";
+import {HomePage} from "../pages/HomePage";
+import {UsersPages} from "../pages/UsersPages";
+import {PostsPage} from "../pages/PostsPage";
+import {SingleUserDetailsPage} from "../pages/SingleUserDetailsPage";
+
+export const routes= createBrowserRouter([
+    {
+        path: '', element:<Layout/>,
+        children: [
+            {path: '', element: <HomePage/>},
+            {path: 'users', element: <UsersPages/>},
+            {path: 'users/details', element: <SingleUserDetailsPage/>},
+            {path: 'posts', element: <PostsPage/>}
+        ]
+    }
+]);
+```
+
+```typescript
+// src/components/users/UserComponent.tsx — Компонент пользователя
+import type { FC } from "react";
+import type { IUser } from "../../model/IUser.ts";
+import { Link, useNavigate } from "react-router-dom";
+
+type UserTypeProps = {
+    item: IUser
+}
+
+const UserComponent: FC<UserTypeProps> = ({item}) => {
+    const navigate = useNavigate();
+    const handleOnCleack = () => {
+        navigate('details', {state: item})
+    }
+
+    return(
+        <div>
+            {/* Декларативный подход */}
+            <Link to={'details'} state={item}>{item.username}</Link>
+
+            {/* Импертивный подход */}
+            <button onClick={handleOnCleack}>
+                go to details
+            </button>
+        </div>
+    )
+}
+
+export default UserComponent;
+```
+
+```typescript
+// src/pages/SingleUserDetailsPage.tsx — Страница деталей пользователя
+import {useLocation} from "react-router-dom";
+import type {IUser} from "../model/IUser";
+
+export const SingleUserDetailsPage = () => {
+    const {state} = useLocation();
+    const user = state as IUser;
+
+    return(
+        <div>
+            {user.email}
+        </div>
+    )
+}
+```
+
+__Изученные концепции/технологии:__
+
+- __Передача состояния через URL-параметры:__ Использование хука `useSearchParams` для передачи состояния между компонентами.
+- __Передача состояния через объект состояния:__ Использование хука `useLocation` для передачи состояния между компонентами.
+- __Декларативный подход:__ Использование компонента `Link` для навигации между страницами.
+- __Импертивный подход:__ Использование хука `useNavigate` для программной навигации между страницами.
+- __Типизация:__ Использование TypeScript для типизации пропсов и состояния.
+
+__Нюансы/Лучшие практики:__
+
+- __Декларативный подход:__ Лучше использовать для обычной навигации, так как он более доступен (accessibility), SEO-friendly и соответствует стандартам браузера.
+- __Импертивный подход:__ Лучше использовать, когда нужна дополнительная логика перед переходом или когда навигация зависит от определенных условий.
+- __Типизация:__ Важно использовать TypeScript для типизации пропсов и состояния, чтобы избежать ошибок и улучшить читаемость кода.
+
+
+
+
+
+📜 Отчет по лекции: lessons/lesson4_2/pagination-basic
+Дата: 11 июля 2026 г.
+
+Тема: Базовая пагинация с useSearchParams, загрузка данных с API, обработка loading состояния.
+
+Краткое описание: Лекция демонстрирует реализацию базовой пагинации в React с использованием хука useSearchParams из React Router. Создан компонент PaginationComponent с кнопками Previous/Next для навигации между страницами. Компонент UsersComponent загружает данные с API dummyjson.com в зависимости от текущей страницы, указанной в URL-параметре pg. Реализованы loading состояние и обработка ошибок.
+
+Основные изменения/функциональность:
+
+В PaginationComponent.tsx реализована пагинация с использованием useSearchParams.
+Кнопки Previous/Next изменяют URL-параметр pg (номер страницы).
+В UsersComponent.tsx реализована загрузка пользователей с API в зависимости от страницы.
+Используется useEffect с зависимостью от query для перезагрузки данных при изменении страницы.
+Добавлено loading состояние для индикации загрузки.
+Добавлена обработка ошибок с .catch().
+В api.service.ts создан метод getAllUsers с параметрами page и limit.
+Используется API dummyjson.com с параметрами limit и skip для пагинации.
+Созданы модели IUser и IUsersResponse для типизации данных.
+Код:
+
+
+
+typescript
+// src/components/pagination/PaginationComponent.tsx — Компонент пагинации
+import { useSearchParams } from "react-router-dom"
+ 
+export const PaginationComponent = () => {
+    const [query, setQuery] = useSearchParams({ pg: '1' })
+    return (
+        <div>
+            <button
+                onClick={() => {
+                    const pg = query.get('pg')
+                    if (pg) {
+                        let currentPage = +pg
+                        setQuery({ pg: (--currentPage).toString() })
+                    }
+                }}
+            >Previous</button>
+ 
+            <button
+                onClick={() => {
+                    const pg = query.get('pg')
+                    if (pg) {
+                        let currentPage = +pg
+                        setQuery({ pg: (++currentPage).toString() })
+                    }
+                }}
+            >Next</button>
+        </div>
+    )
+}
+
+
+typescript
+// src/components/users/UsersComponent.tsx — Компонент списка пользователей с пагинацией
+import { useSearchParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import type { IUser } from "../../models/IUser"
+import { apiService } from "../../services/api.service"
+ 
+export const UsersComponent = () => {
+    const [query] = useSearchParams()
+    const [users, setUsers] = useState<IUser[]>([])
+    const [loading, setLoading] = useState(false)
+ 
+    useEffect(() => {
+        const pg = query.get('pg') || '1'
+        setLoading(true)
+ 
+        apiService.getAllUsers(pg)
+            .then(data => {
+                setUsers(data.users)
+                setLoading(false)
+            })
+            .catch(err => {
+                console.error("Fetch error:", err)
+                setLoading(false)
+            })
+    }, [query])
+ 
+    return (
+        <div style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px', marginBottom: '10px' }}>
+            <h2>Users List (Page {query.get('pg') || '1'})</h2>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <ul>
+                    {users.map(user => (
+                        <li key={user.id}>{user.firstName} {user.lastName}</li>
+                    ))}
+                </ul>
+            )}
+            {!loading && users.length === 0 && <p>No users found.</p>}
+        </div>
+    )
+}
+
+
+typescript
+// src/services/api.service.ts — Сервис для работы с API
+import type { IUsersResponse } from "../models/IUsersResponse";
+ 
+export const apiService = {
+    getAllUsers: async (page: string | number, limit: number = 6): Promise<IUsersResponse> => {
+        const skip = (Number(page) - 1) * limit;
+        const response = await fetch(`https://dummyjson.com/users?limit=${limit}&skip=${skip}`);
+        return await response.json();
+    }
+};
+
+
+typescript
+// src/models/IUser.ts — Интерфейс пользователя
+export interface IUser {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    image: string;
+}
+
+
+typescript
+// src/models/IUsersResponse.ts — Интерфейс ответа API
+import type { IUser } from "./IUser";
+ 
+export interface IUsersResponse {
+    users: IUser[];
+    total: number;
+    skip: number;
+    limit: number;
+}
+
+
+typescript
+// src/App.tsx — Основной компонент
+import './App.css'
+import { PaginationComponent } from './components/pagination/PaginationComponent'
+import { UsersComponent } from './components/users/UsersComponent'
+ 
+export const App = () => {
+  return (
+    <>
+      <UsersComponent />
+      <h1>Pagination Demo</h1>
+      <PaginationComponent />
+    </>
+  )
+}
+Изученные концепции/технологии:
+
+useSearchParams: Хук React Router для работы с URL-параметрами query string (например, ?pg=1).
+Пагинация на клиенте: Управление отображением данных постранично с помощью URL-параметров.
+Loading состояние: Индикация загрузки данных для улучшения UX.
+Обработка ошибок: Использование .catch() для обработки ошибок при fetch-запросах.
+Skip/Limit паттерн: Пагинация на сервере с помощью параметров skip (сколько пропустить) и limit (сколько взять).
+Реактивность на изменение URL: useEffect с зависимостью от query автоматически перезагружает данные при изменении страницы.
+_Нюансы/Лучшие практики:
+
+URL как источник истины: Номер страницы хранится в URL, что позволяет делиться ссылками на конкретные страницы.
+Инициализация useSearchParams: useSearchParams({ pg: '1' }) устанавливает значение по умолчанию.
+Типизация параметров: query.get('pg') возвращает string | null, поэтому нужно преобразование в число (+pg или Number(pg)).
+Валидация страницы: В текущей реализации нет проверки на отрицательные страницы или страницы больше возможного количества.
+API dummyjson: Используется тестовый API dummyjson.com который поддерживает пагинацию через limit и skip.
+Состояние loading: Важно устанавливать setLoading(false) и в .then() и в .catch() чтобы избежать вечной загрузки при ошибке.__
+
+
+
+
+
+📜 Отчет по лекции: lessons/lesson4_3/pagination-basic
+Дата: 11 июля 2026 г.
+
+Тема: Рефакторинг пагинации — вынесение компонента пользователя, улучшение структуры кода.
+
+Краткое описание: Лекция демонстрирует рефакторинг кода пагинации из lesson4_2. Основное изменение — вынесение отображения отдельного пользователя в отдельный компонент UserComponent. Это улучшает структуру кода, следует принципу единственной ответственности и делает компоненты более переиспользуемыми. Остальная логика пагинации осталась без изменений.
+
+Основные изменения/функциональность:
+
+Создан новый компонент UserComponent в UserComponent.tsx для отображения отдельного пользователя.
+В UsersComponent вместо прямого рендеринга в map теперь используется компонент UserComponent.
+UserComponent отображает имя, email и изображение пользователя.
+Остальная логика пагинации (useSearchParams, загрузка данных, loading состояние) осталась без изменений.
+Код:
+
+
+
+typescript
+// src/components/users/UserComponent.tsx — Новый компонент для отображения пользователя
+import type { FC } from "react";
+import type { IUser } from "../../models/IUser";
+ 
+type PropsType = {
+    item: IUser;
+}
+ 
+export const UserComponent: FC<PropsType> = ({ item }) => {
+    return (
+        <li>
+            <h2>{item.firstName} {item.lastName}</h2>
+            <p>{item.email}</p>
+            <img src={item.image} alt={item.firstName} />
+        </li>
+    )
+}
+
+
+typescript
+// src/components/users/UsersComponent.tsx — Обновленный компонент с использованием UserComponent
+import { useSearchParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import type { IUser } from "../../models/IUser"
+import { apiService } from "../../services/api.service"
+import { UserComponent } from "./UserComponent"
+ 
+export const UsersComponent = () => {
+    const [query] = useSearchParams()
+    const [users, setUsers] = useState<IUser[]>([])
+    const [loading, setLoading] = useState(false)
+ 
+    useEffect(() => {
+        const pg = query.get('pg') || '1'
+        setLoading(true)
+ 
+        apiService.getAllUsers(pg)
+            .then(data => {
+                setUsers(data.users)
+                setLoading(false)
+            })
+            .catch(err => {
+                console.error("Fetch error:", err)
+                setLoading(false)
+            })
+    }, [query])
+ 
+    return (
+        <div style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px', marginBottom: '10px' }}>
+            <h2>Users List (Page {query.get('pg') || '1'})</h2>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <ul>
+                    {users.map(user => (
+                        <UserComponent key={user.id} item={user} />
+                    ))}
+                </ul>
+            )}
+            {!loading && users.length === 0 && <p>No users found.</p>}
+        </div>
+    )
+}
+
+
+typescript
+// src/components/pagination/PaginationComponent.tsx — Без изменений
+import { useSearchParams } from "react-router-dom"
+ 
+export const PaginationComponent = () => {
+    const [query, setQuery] = useSearchParams({ pg: '1' })
+    return (
+        <div>
+            <button
+                onClick={() => {
+                    const pg = query.get('pg')
+                    if (pg) {
+                        let currentPage = +pg
+                        setQuery({ pg: (--currentPage).toString() })
+                    }
+                }}
+            >Previous</button>
+ 
+            <button
+                onClick={() => {
+                    const pg = query.get('pg')
+                    if (pg) {
+                        let currentPage = +pg
+                        setQuery({ pg: (++currentPage).toString() })
+                    }
+                }}
+            >Next</button>
+        </div>
+    )
+}
+Изученные концепции/технологии:
+
+Рефакторинг: Улучшение структуры кода без изменения функциональности.
+Принцип единственной ответственности (Single Responsibility Principle): Каждый компонент должен отвечать за одну задачу.
+Вынесение компонентов: Разделение больших компонентов на более мелкие, специализированные.
+Переиспользование компонентов: Отдельные компоненты легче переиспользовать в других частях приложения.
+Читаемость кода: Мелкие компоненты с понятными именами улучшают читаемость кода.
+Нюансы/Лучшие практики:
+
+Компоненты должны быть маленькими: Если компонент становится слишком большим, рассмотрите возможность его разделения.
+Именование компонентов: Используйте понятные имена, которые отражают назначение компонента (например, UserComponent для отображения пользователя).
+Пропсы: Передавайте только те данные, которые нужны компоненту. UserComponent получает только item: IUser.
+Изображения: Всегда добавляйте alt атрибут к тегам <img> для доступности.
+Ключи в map: Используйте уникальные идентификаторы (user.id) как ключи при рендеринге списков.
+
+
+
+
+
+📜 Отчет по домашнему заданию: hw/hw4/task1/pagination
+Дата: 11 июля 2026 г.
+
+Тема: Пагинация с вложенными Layout'ами, useSearchParams, загрузка данных с dummyjson.com.
+
+Краткое описание: Домашнее задание по теме пагинации (соответствует лекциям lesson4). Реализована пагинация пользователей с использованием вложенных Layout'ов. MainLayout содержит меню, PaginationLayout содержит компонент пагинации. Пагинация управляется через URL-параметр page с помощью useSearchParams. Данные загружаются с API dummyjson.com по 30 пользователей на страницу.
+
+Основные изменения/функциональность:
+
+Создана вложенная структура Layout'ов: MainLayout → PaginationLayout → UsersPage.
+В MainLayout находится MenuComponent и <Outlet/> для дочерних маршрутов.
+В PaginationLayout находится <Outlet/> для страниц и PaginationComponent для навигации.
+В PaginationComponent реализована пагинация с кнопками Previous/Next.
+Проверка на первую страницу: кнопка Previous отключена если currentPage > 1.
+В UsersComponent данные загружаются в зависимости от параметра page из URL.
+В userService.getAllUsers используется limit = 30 и вычисляется skip на основе номера страницы.
+Создана подробная модель IUser с множеством полей (включая вложенные объекты: address, bank, company, crypto, hair).
+Создана модель IUsersResponseModels для типизации ответа API.
+Код:
+
+
+
+typescript
+// src/routes/routes.tsx — Вложенные маршруты с двумя Layout'ами
+import { createBrowserRouter } from "react-router-dom";
+import { MainLayout } from "../layouts/MainLayout";
+import { UsersPage } from "./../pages/UsersPage";
+import { PaginationLayout } from "../layouts/PaginationLayout";
+ 
+export const router = createBrowserRouter([
+    {
+        path: '/', element: <MainLayout />, children: [
+            {
+                path: '', element: <PaginationLayout />, children: [
+                    {
+                        path: 'users', element: <UsersPage />
+                    }
+                ],
+            }
+        ]
+    }
+])
+
+
+typescript
+// src/layouts/MainLayout.tsx — Основной Layout с меню
+import { Outlet } from "react-router-dom";
+import { MenuComponent } from "../components/menu/MenuComponent";
+ 
+export const MainLayout = () => {
+    return (
+        <div>
+            <MenuComponent />
+            <Outlet />
+        </div>
+    );
+};
+
+
+typescript
+// src/layouts/PaginationLayout.tsx — Layout с пагинацией
+import { PaginationComponent } from "../components/pagination-component/PaginationComponent";
+import { Outlet } from "react-router-dom";
+ 
+export const PaginationLayout = () => {
+    return (
+        <div>
+            <Outlet />
+            <PaginationComponent />
+        </div>
+    );
+};
+
+
+typescript
+// src/components/pagination-component/PaginationComponent.tsx — Компонент пагинации
+import { useSearchParams } from "react-router-dom";
+ 
+export const PaginationComponent = () => {
+    const [searchParams, setSearchParams] = useSearchParams({ page: '1' });
+    let currentPage = Number(searchParams.get('page') || 1);
+    return (
+        <div>
+            <button onClick={() => {
+                if (currentPage > 1) {
+                    setSearchParams({ page: (--currentPage).toString() });
+                }
+            }}>
+                Previous
+            </button>
+ 
+            <button onClick={() => {
+                setSearchParams({ page: (++currentPage).toString() });
+            }}>
+                Next
+            </button>
+        </div>
+    );
+};
+
+
+typescript
+// src/components/users-components/UsersComponent.tsx — Компонент списка пользователей
+import { useEffect, useState } from "react";
+import type { IUser } from "../../models/IUsers";
+import { userService } from "../../services/api.service";
+import type { IUsersResponseModels } from "../../models/IUsersResponseModels";
+import { UserComponent } from "./UserComponent";
+import { useSearchParams } from "react-router-dom";
+ 
+export const UsersComponent = () => {
+    const [searchParams] = useSearchParams({ page: '1' });
+    const [users, setUsers] = useState<IUser[]>([]);
+ 
+    useEffect(() => {
+        const currentPage = searchParams.get('page') || '1';
+        userService.getAllUsers(currentPage)
+            .then(({ users }: IUsersResponseModels) => {
+                setUsers(users);
+            });
+    }, [searchParams]);
+ 
+    return (
+        <div>
+            <ul>
+                {users.map(user => <UserComponent key={user.id} user={user} />)}
+            </ul>
+        </div>
+    );
+};
+
+
+typescript
+// src/components/users-components/UserComponent.tsx — Компонент пользователя
+import type { IUser } from "../../models/IUsers";
+import type { FC } from "react";
+ 
+type PropsType = {
+    user: IUser;
+}
+export const UserComponent: FC<PropsType> = ({ user }) => {
+    return (
+        <div>
+            {user.id}
+            <h2>{user.firstName}</h2>
+            <img src={user.image} alt={user.firstName} />
+            <p>{user.firstName}</p>
+            <p>{user.lastName}</p>
+        </div>
+    );
+};
+
+
+typescript
+// src/services/api.service.ts — Сервис для работы с API
+import type { IUsersResponseModels } from "../models/IUsersResponseModels";
+ 
+const baseUrl = 'https://dummyjson.com';
+ 
+export const userService = {
+    getAllUsers: async (page: string): Promise<IUsersResponseModels> => {
+        const limit = 30;
+        const skip = (Number(page) - 1) * limit;
+        const response = await fetch(`${baseUrl}/users?limit=${limit}&skip=${skip}`);
+        return await response.json();
+    }
+};
+
+
+typescript
+// src/models/IUsers.ts — Подробная модель пользователя
+export interface IGeo {
+    lat: number;
+    lng: number;
+}
+ 
+export interface IAddress {
+    address: string;
+    city: string;
+    state: string;
+    stateCode: string;
+    postalCode: string;
+    coordinates: IGeo;
+    country: string;
+}
+ 
+export interface IHair {
+    color: string;
+    type: string;
+}
+ 
+export interface IBank {
+    cardExpire: string;
+    cardNumber: string;
+    cardType: string;
+    currency: string;
+    iban: string;
+}
+ 
+export interface ICompany {
+    department: string;
+    name: string;
+    title: string;
+    address: IAddress;
+}
+ 
+export interface ICrypto {
+    coin: string;
+    wallet: string;
+    network: string;
+}
+ 
+export interface IUser {
+    id: number;
+    firstName: string;
+    lastName: string;
+    maidenName: string;
+    age: number;
+    gender: string;
+    email: string;
+    phone: string;
+    username: string;
+    birthDate: string;
+    image: string;
+    bloodGroup: string;
+    height: number;
+    weight: number;
+    eyeColor: string;
+    hair: IHair;
+    ip: string;
+    address: IAddress;
+    macAddress: string;
+    university: string;
+    bank: IBank;
+    company: ICompany;
+    ein: string;
+    ssn: string;
+    userAgent: string;
+    crypto: ICrypto;
+    role: string;
+}
+
+
+typescript
+// src/models/IUsersResponseModels.ts — Модель ответа API
+import type { IUser } from "./IUsers";
+ 
+export interface IUsersResponseModels {
+    users: IUser[];
+    total: number;
+    skip: number;
+    limit: number;
+}
+Изученные концепции/технологии:
+
+Вложенные Layout'ы: Использование нескольких уровней Layout'ов для организации структуры приложения.
+useSearchParams: Работа с URL-параметрами query string для управления состоянием пагинации.
+Outlet в нескольких уровнях: Использование <Outlet/> на разных уровнях вложенности маршрутов.
+DummyJSON API: Использование тестового API dummyjson.com с поддержкой пагинации через limit и skip.
+Подробная типизация: Создание полных TypeScript интерфейсов для сложных структур данных с вложенными объектами.
+Валидация пагинации: Проверка currentPage > 1 для предотвращения перехода на отрицательные страницы.
+Нюансы/Лучшие практики:
+
+Организация Layout'ов: Вложенные Layout'ы позволяют переиспользовать общие элементы (меню, пагинацию) на разных уровнях.
+Именование параметров: Использование осмысленных имен параметров (page вместо pg) улучшает читаемость URL.
+Limit на странице: Фиксированный limit = 30 упрощает расчет skip.
+Типизация ответа API: Полная типизация ответа API предотвращает ошибки при работе с данными.
+Вложенные интерфейсы: Использование вложенных интерфейсов (IAddress, IBank, ICompany) улучшает структуру кода.
+Проверка границ: В текущей реализации нет проверки на максимальное количество страниц (можно добавить используя total из ответа API).
+
+
+
+
+
+
+📜 Отчет по лекции: lessons/lesson-5/uncontrolled-components-and-forms
+Дата: 11 июля 2026 г.
+
+Тема: Неконтролируемые компоненты (Uncontrolled Components) в React, базовые формы.
+
+Краткое описание: Лекция демонстрирует базовый пример неконтролируемых компонентов в React. Неконтролируемые компоненты — это элементы формы, которые хранят свое собственное состояние внутри DOM и не управляются напрямую React. В этом примере создана простая форма с двумя полями ввода (username и password) без использования useState для управления их значениями.
+
+Основные изменения/функциональность:
+
+Создан компонент FormComponent в FormComponent.tsx.
+Форма содержит два input поля: username и password.
+Поля не контролируются React — их состояние хранится в DOM.
+Используются атрибуты name для идентификации полей.
+Нет обработчиков событий или управления состоянием через React.
+Код:
+
+
+
+typescript
+// src/App.tsx — Основной компонент
+import './App.css'
+import { FormComponent } from "./components/form-component/FormComponent.tsx";
+ 
+function App() {
+  return (
+    <>
+      <FormComponent />
+    </>
+  )
+}
+ 
+export default App
+
+
+typescript
+// src/components/form-component/FormComponent.tsx — Неконтролируемая форма
+export const FormComponent = () => {
+    return (
+        <div>
+            <input type="text" name="username" />
+            <input type="text" name="password" />
+        </div>
+    )
+}
+Изученные концепции/технологии:
+
+Неконтролируемые компоненты (Uncontrolled Components): Элементы формы, которые управляются DOM, а не React. Их значение можно получить через ref или при отправке формы.
+Атрибут name: Используется для идентификации полей формы, особенно при работе с неконтролируемыми компонентами.
+Различие между контролируемыми и неконтролируемыми компонентами: Контролируемые компоненты управляются через React state, неконтролируемые — через DOM.
+Нюансы/Лучшие практики:
+
+Когда использовать неконтролируемые компоненты: Подходят для простых форм, когда не нужна валидация в реальном времени или сложная логика.
+Получение значений: Для получения значений неконтролируемых компонентов обычно используют ref или событие onSubmit формы.
+Контролируемые vs неконтролируемые: В большинстве случаев в React предпочтительнее использовать контролируемые компоненты для лучшего контроля над состоянием и валидацией.
+Атрибут type: Важно указывать правильный тип для полей (например, password для пароля вместо text в примере).
+
+
+
+
+
+📜 Отчет по лекции: lessons/lesson5-1/controlled-components-and-form
+Дата: 11 июля 2026 г.
+
+Тема: Контролируемые компоненты (Controlled Components) в React, управление состоянием форм.
+
+Краткое описание: Лекция демонстрирует работу с контролируемыми компонентами в React. В отличие от неконтролируемых компонентов (lesson5), контролируемые компоненты полностью управляются React через state. Значения полей формы привязаны к состоянию компонента через проп value, а изменения отслеживаются через обработчик onChange. Это дает полный контроль над данными формы и позволяет реализовывать валидацию в реальном времени.
+
+Основные изменения/функциональность:
+
+В FormComponent используется useState для управления состоянием формы с начальными значениями.
+Создан интерфейс IFormProps для типизации состояния формы.
+Поля ввода привязаны к state через value={formState.username} и value={formState.password}.
+Реализован обработчик handleInputChange для обновления state при изменении полей.
+Используется динамическое обновление state через [input.name]: input.value.
+Реализован обработчик handleSabmit с e.preventDefault() для предотвращения перезагрузки страницы.
+Используется типизация FormEvent<HTMLFormElement> и FormEvent<HTMLInputElement>.
+Код:
+
+
+
+typescript
+// src/App.tsx — Основной компонент
+import './App.css'
+import { FormComponent } from "./components/form-component/FormComponent.tsx";
+ 
+function App() {
+  return (
+    <>
+      <FormComponent />
+    </>
+  )
+}
+ 
+export default App
+
+
+typescript
+// src/components/form-component/FormComponent.tsx — Контролируемая форма
+import { useState, type FormEvent } from "react"
+ 
+type IFormProps = {
+    username: string;
+    password: string;
+}
+ 
+export const FormComponent = () => {
+    const [formState, setFormState] = useState<IFormProps>({
+        username: "Tomas",
+        password: "123"
+    })
+ 
+    const handleSabmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+    }
+ 
+    const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
+        const input = e.target as HTMLInputElement;
+        setFormState({ ...formState, [input.name]: input.value })
+    }
+ 
+    return (
+        <div>
+            <form onSubmit={handleSabmit}>
+                <input type="text" name="username" value={formState.username} onChange={handleInputChange} />
+                <input type="text" name="password" value={formState.password} onChange={handleInputChange} />
+            </form>
+        </div>
+    )
+}
+_Изученные концепции/технологии:
+
+Контролируемые компоненты (Controlled Components): Элементы формы, значения которых управляются React через state.
+Привязка значений: Использование пропа value для привязки значения поля к state.
+Обработчик onChange: Отслеживание изменений в полях формы и обновление state.
+Динамическое обновление state: Использование вычисляемых свойств [input.name]: input.value для обновления соответствующего поля.
+FormEvent: Тип TypeScript для событий формы.
+preventDefault(): Предотвращение стандартного поведения браузера (перезагрузки страницы при отправке формы).
+Начальные значения: Установка начальных значений полей через useState.
+_Нюансы/Лучшие практики:
+
+Контролируемые vs неконтролируемые: Контролируемые компоненты предпочтительнее в React для лучшего контроля над данными и валидацией.
+Типизация событий: Использование FormEvent<HTMLFormElement> и FormEvent<HTMLInputElement> для типизации событий.
+Приведение типов: Использование as HTMLInputElement для доступа к свойствам элемента (name, value).
+Распространение состояния: Использование { ...formState, [key]: value } для обновления только одного поля без потери остальных.
+Имя поля: Атрибут name должен совпадать с ключом в объекте state для корректной работы динамического обновления.
+Начальные значения: Установка начальных значений полезна для форм редактирования или предзаполненных данных.
+
+
+
+
+
+📜 Отчет по лекции: lessons/lesson5-2/use-form-hook
+Дата: 11 июля 2026 г.
+
+Тема: Библиотека react-hook-form для управления формами, register, handleSubmit.
+
+Краткое описание: Лекция демонстрирует использование библиотеки react-hook-form для управления формами в React. Это популярная библиотека, которая упрощает работу с формами по сравнению с ручным управлением через useState. Вместо ручного создания обработчиков для каждого поля, используется хук useForm с методами register (для регистрации полей) и handleSubmit (для обработки отправки формы).
+
+Основные изменения/функциональность:
+
+Добавлена библиотека react-hook-form (предварительно установлена через npm).
+В FormComponent используется хук useForm<IFormProps>() для управления формой.
+Метод register используется для регистрации полей формы через spread оператор {...register("username")}.
+Метод handleSubmit оборачивает кастомный обработчик customHandler.
+Создан интерфейс IFormProps для типизации данных формы (username, password, age).
+При отправке формы данные выводятся в консоль через console.log(FormDataProps).
+Добавлено поле age с типом number.
+Код:
+
+
+
+typescript
+// src/App.tsx — Основной компонент
+import './App.css'
+import { FormComponent } from "./components/form-component/FormComponent.tsx";
+ 
+function App() {
+  return (
+    <>
+      <FormComponent />
+    </>
+  )
+}
+ 
+export default App
+
+
+typescript
+// src/components/form-component/FormComponent.tsx — Форма с react-hook-form
+import { useForm } from "react-hook-form";
+ 
+type IFormProps = {
+    username: string;
+    password: string;
+    age: number;
+}
+ 
+export const FormComponent = () => {
+    const { handleSubmit, register } = useForm<IFormProps>();
+ 
+    const customHandler = (FormDataProps: IFormProps) => {
+        console.log(FormDataProps);
+    }
+ 
+    return (
+        <div>
+            <form onSubmit={handleSubmit(customHandler)}>
+                <input type="text" {...register("username")} />
+                <input type="text" {...register("password")} />
+                <input type="number" {...register("age")} />
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    )
+}
+_Изученные концепции/технологии:
+
+react-hook-form: Популярная библиотека для управления формами в React с минимальным количеством ререндеров.
+useForm: Основной хук библиотеки для управления состоянием формы.
+register: Метод для регистрации полей формы, который автоматически связывает их с состоянием.
+handleSubmit: Метод для обработки отправки формы, который автоматически собирает данные и передает их в обработчик.
+Spread оператор с register: Использование {...register("fieldName")} для регистрации полей в JSX.
+Типизация: Использование TypeScript интерфейсов для типизации данных формы через useForm<IFormProps>().
+_Нюансы/Лучшие практики:
+
+Преимущества react-hook-form: Меньше ререндеров, меньше кода, встроенная валидация, поддержка TypeScript.
+register vs useState: Вместо ручного создания state и обработчиков для каждого поля, достаточно вызвать register.
+Имена полей: Имена полей в register("fieldName") должны совпадать с ключами в интерфейсе IFormProps.
+handleSubmit: Автоматически предотвращает перезагрузку страницы (нужно только если используется стандартная форма).
+Установка библиотеки: Для использования нужно установить библиотеку через npm install react-hook-form.
+Кнопка submit: Важно указать type="submit" на кнопке для корректной работы формы.
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons5-3/use-form-hook/validation
+Дата: 11 июля 2026 г.
+
+Тема: Валидация форм с react-hook-form, formState, правила валидации, отображение ошибок.
+
+Краткое описание: Лекция демонстрирует встроенную валидацию форм в библиотеке react-hook-form. Вместо ручной валидации через useState, используются встроенные правила валидации в методе register. Добавлен доступ к formState для получения ошибок и статуса валидности формы. Реализованы правила для каждого поля: обязательность, минимальная/максимальная длина, минимальное/максимальное значение. Ошибки отображаются рядом с полями, кнопка submit отключена пока форма невалидна.
+
+_Основные изменения/функциональность:
+
+В деструктуризацию useForm добавлен formState: { errors, isValid }.
+Установлен режим валидации { mode: 'all' } для валидации при изменении и при отправке.
+В register добавлен второй аргумент с правилами валидации:
+username: required: true, minLength: 1
+password: required: true, minLength: 3, maxLength: 6
+age: required: true, valueAsNumber: true, min: 18, max: 65
+Каждое правило может иметь кастомное сообщение об ошибке через message.
+Ошибки отображаются через {errors.fieldName && errors.fieldName.message}.
+Кнопка submit отключена через disabled={!isValid} пока форма невалидна.
+Для поля age используется valueAsNumber: true для автоматического преобразования в число.
+Код:
+
+
+
+typescript
+// src/App.tsx — Основной компонент
+import './App.css'
+import { FormComponent } from "./components/form-component/FormComponent.tsx";
+ 
+function App() {
+  return (
+    <>
+      <FormComponent />
+    </>
+  )
+}
+ 
+export default App
+
+
+typescript
+// src/components/form-component/FormComponent.tsx — Форма с валидацией
+import { useForm } from "react-hook-form";
+ 
+type IFormProps = {
+    username: string;
+    password: string;
+    age: number;
+}
+ 
+export const FormComponent = () => {
+    const { handleSubmit, register, formState: { errors, isValid } } = useForm<IFormProps>({ mode: 'all' });
+ 
+    const customHandler = (FormDataProps: IFormProps) => {
+        console.log(FormDataProps);
+    }
+ 
+    return (
+        <div>
+            <form onSubmit={handleSubmit(customHandler)}>
+                <label>
+                    <input type="text" {...register("username", {
+                        required: true,
+                        minLength: { value: 1, message: "Wrong username" }
+                    })} />
+                    <p>{errors.username && errors.username.message}</p>
+                </label>
+ 
+                <label>
+                    <input type="text" {...register("password", {
+                        required: true,
+                        minLength: { value: 3, message: "Wrong short password" },
+                        maxLength: { value: 6, message: "Wrong long password" }
+                    })} />
+                    <p>{errors.password && errors.password.message}</p>
+                </label>
+ 
+                <label>
+                    <input type="number" {...register("age", {
+                        required: true,
+                        valueAsNumber: true,
+                        min: { value: 18, message: "You are too young" },
+                        max: { value: 65, message: "You are too old" }
+                    })} />
+                    <p>{errors.age && errors.age.message}</p>
+                </label>
+ 
+                <button disabled={!isValid}>Submit</button>
+            </form>
+        </div>
+    )
+}
+_Изученные концепции/технологии:
+
+formState: Объект в react-hook-form, содержащий состояние формы (errors, isValid, isDirty, isSubmitting и др.).
+errors: Объект с ошибками валидации для каждого поля.
+isValid: Булево значение, указывающее на валидность всей формы.
+mode: Режим валидации (onSubmit, onBlur, onChange, all).
+Правила валидации: Встроенные правила в react-hook-form (required, minLength, maxLength, min, max, pattern и др.).
+Кастомные сообщения: Возможность задавать кастомные сообщения об ошибках через message.
+valueAsNumber: Автоматическое преобразование значения в число для полей типа number.
+_Нюансы/Лучшие практики:
+
+Режим валидации: mode: 'all' валидирует при изменении и при отправке, что дает лучший UX.
+Отображение ошибок: Проверка errors.fieldName && errors.fieldName.message предотвращает отображение пустых сообщений.
+Отключение кнопки: disabled={!isValid} предотвращает отправку невалидной формы.
+valueAsNumber: Важно использовать для числовых полей чтобы получать число вместо строки.
+Правила minLength/maxLength: Для строковых полей используется minLength/maxLength, для числовых — min/max.
+Комментарии: В коде есть закомментированный пример с pattern валидацией через регулярные выражения.__
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons5-4/use-form-hook/validation-joi
+Дата: 11 июля 2026 г.
+
+Тема: Валидация форм с библиотекой Joi и интеграция с react-hook-form через joiResolver.
+
+Краткое описание: Лекция демонстрирует использование библиотеки Joi для валидации форм в связке с react-hook-form. Вместо встроенных правил валидации в методе register, используется отдельный валидатор на основе Joi схемы. Это позволяет вынести логику валидации в отдельный файл, делает код чище и более поддерживаемым. Для интеграции Joi с react-hook-form используется joiResolver из пакета @hookform/resolvers/joi.
+
+_Основные изменения/функциональность:
+
+Создана папка src/validators/ для хранения валидаторов.
+Создан файл user.validator.ts со схемой валидации Joi.
+В FormComponent импортируется joiResolver из @hookform/resolvers/joi.
+В useForm добавлен параметр resolver: joiResolver(userValidator).
+Правила валидации вынесены из register в Joi схему:
+username: строка, паттерн \w{3,} (минимум 3 символа), обязательное поле
+password: строка, минимум 6 символов, максимум 12 символов, обязательное поле
+age: число, минимум 1, максимум 120, обязательное поле
+Кастомные сообщения об ошибках задаются через .messages() в Joi схеме.
+В register больше не передаются правила валидации, только имя поля.
+Код:
+
+
+
+typescript
+// src/App.tsx — Основной компонент
+import './App.css'
+import { FormComponent } from "./components/form-component/FormComponent.tsx";
+ 
+function App() {
+  return (
+    <>
+      <FormComponent />
+    </>
+  )
+}
+ 
+export default App
+
+
+typescript
+// src/components/form-component/FormComponent.tsx — Форма с Joi валидацией
+import { useForm } from "react-hook-form";
+import { joiResolver } from "@hookform/resolvers/joi";
+import { userValidator } from "../../validators/user.validator";
+ 
+type IFormProps = {
+    username: string;
+    password: string;
+    age: number;
+}
+ 
+export const FormComponent = () => {
+    const { handleSubmit, register, formState: { errors, isValid } } = useForm<IFormProps>({ mode: 'all', resolver: joiResolver(userValidator) });
+ 
+    const customHandler = (FormDataProps: IFormProps) => {
+        console.log(FormDataProps);
+    }
+ 
+    return (
+        <div>
+            <form onSubmit={handleSubmit(customHandler)}>
+                <label>
+                    <input type="text" {...register("username")} />
+                    <p>{errors.username && errors.username.message}</p>
+                </label>
+ 
+                <label>
+                    <input type="text" {...register("password")} />
+                    <p>{errors.password && errors.password.message}</p>
+                </label>
+ 
+                <label>
+                    <input type="number" {...register("age")} />
+                    <p>{errors.age && errors.age.message}</p>
+                </label>
+ 
+                <button disabled={!isValid}>Submit</button>
+            </form>
+        </div>
+    )
+}
+
+
+typescript
+// src/validators/user.validator.ts — Joi схема валидации
+import Joi from "joi";
+ 
+export const userValidator = Joi.object({
+    username: Joi.string().pattern(/\w{3,}/).required().messages({
+        'string.pattern.base': 'Wrong username'
+    }),
+    password: Joi.string().min(6).max(12).required().messages({
+        'string.min': 'Password must be at least 6 characters long',
+        'string.max': 'Password must be at most 12 characters long'
+    }),
+    age: Joi.number().min(1).max(120).required().messages({
+        'number.min': 'Age must be at least 1 year old',
+        'number.max': 'Age must be at most 120 years old'
+    })
+})
+_Изученные концепции/технологии:
+
+Joi: Популярная библиотека для валидации данных в JavaScript/TypeScript.
+joiResolver: Адаптер для интеграции Joi с react-hook-form из пакета @hookform/resolvers/joi.
+Схема валидации: Объект Joi, описывающий структуру и правила валидации данных.
+Вынесение валидации: Разделение логики валидации от компонента формы.
+Кастомные сообщения в Joi: Использование .messages() для задания кастомных сообщений об ошибках.
+Pattern валидация в Joi: Использование регулярных выражений через .pattern().
+_Нюансы/Лучшие практики:
+
+Разделение ответственности: Валидация вынесена в отдельный файл, что улучшает структуру кода.
+Переиспользование: Joi схемы можно переиспользовать в разных частях приложения.
+Читаемость: Joi схемы более декларативны и читаемы по сравнению с вложенными объектами в register.
+Установка пакетов: Для использования нужно установить joi и @hookform/resolvers/joi.
+Типизация сообщений: В Joi сообщения задаются через ключи типа 'string.pattern.base', 'string.min' и т.д.
+Resolver vs встроенные правила: Использование resolver позволяет использовать мощные возможности Joi вместо ограниченных встроенных правил.__
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons5-5/axios
+Дата: 11 июля 2026 г.
+
+Тема: Библиотека Axios для HTTP-запросов, создание инстанса, интерсепторы, типизация.
+
+Краткое описание: Лекция демонстрирует использование библиотеки Axios для выполнения HTTP-запросов вместо нативного fetch. Axios предоставляет более удобный API, автоматическую парсинг JSON, поддержку интерсепторов, отмену запросов и другие возможности. Создан настроенный инстанс axios с baseURL, заголовками и интерсепторами для логирования и добавления токена авторизации.
+
+_Основные изменения/функциональность:
+
+Добавлена библиотека Axios (предварительно установлена через npm).
+Создан файл user.service.ts с сервисом для работы с API.
+Создан инстанс axiosInstance через axios.create() с настройками:
+baseURL: 'http://jsonplaceholder.typicode.com'
+headers: { 'Content-Type': 'application/json' }
+Добавлен request interceptor для логирования запросов и добавления заголовка Authorization.
+Добавлен response interceptor для логирования ответов.
+Созданы методы getAllUsers (GET запрос) и saveUser (POST запрос).
+Использована типизация через generics: axiosInstance.get<IUser[]> и axiosInstance.post<IUser>.
+В App.tsx вызываются методы сервиса в useEffect с выводом результатов в консоль.
+Код:
+
+
+
+typescript
+// src/App.tsx — Использование axios сервиса
+import './App.css'
+import { useEffect } from 'react'
+import { getAllUsers, saveUser } from './service/user.service'
+ 
+function App() {
+  useEffect(() => {
+    getAllUsers().then(users => console.log(users))
+    saveUser({ id: 1, name: 'John Doe', email: 'john.doe@example.com', }).then(value => console.log(value))
+  }, [])
+  return (
+    <>
+    </>
+  )
+}
+ 
+export default App
+
+
+typescript
+// src/service/user.service.ts — Axios сервис с интерсепторами
+import axios from 'axios'
+import type { IUser } from '../model/IUser'
+ 
+const axiosInstance = axios.create({
+    baseURL: 'http://jsonplaceholder.typicode.com',
+    headers: { 'Content-Type': 'application/json' },
+})
+ 
+axiosInstance.interceptors.request.use((request) => {
+    console.log(request)
+    request.headers.set('Authorization', 'Bearer ')
+    return request
+})
+ 
+axiosInstance.interceptors.response.use((response) => {
+    console.log(response)
+    return response
+})
+ 
+export const getAllUsers = async (): Promise<IUser[]> => {
+    const { data } = await axiosInstance.get<IUser[]>('/users')
+    return data
+}
+ 
+export const saveUser = async (user: IUser): Promise<IUser> => {
+    const { data } = await axiosInstance.post<IUser>('/users', user)
+    return data
+}
+
+
+typescript
+// src/model/IUser.ts — Интерфейс пользователя
+export interface IUser {
+    id: number;
+    name: string;
+    email: string;
+}
+_Изученные концепции/технологии:
+
+Axios: Популярная библиотека для HTTP-запросов с более удобным API чем fetch.
+axios.create(): Создание настроенного инстанса axios с общими настройками.
+baseURL: Базовый URL для всех запросов инстанса.
+Interceptors: Перехватчики для модификации запросов и ответов (добавление заголовков, логирование, обработка ошибок).
+Request interceptor: Выполняется перед отправкой запроса.
+Response interceptor: Выполняется после получения ответа.
+Generics в Axios: Типизация данных через <T> для автоматической типизации response.data.
+GET и POST запросы: Методы get() и post() для соответствующих HTTP-методов.
+_Нюансы/Лучшие практики:
+
+Axios vs Fetch: Axios автоматически парсит JSON, поддерживает интерсепторы, отмену запросов, лучшую поддержку старых браузеров.
+Единый инстанс: Создание одного инстанса axios для всего приложения упрощает настройку и поддержку.
+Интерсепторы: Идеальны для добавления токенов авторизации, логирования, обработки ошибок глобально.
+Типизация: Использование generics <IUser[]> обеспечивает типизацию данных и улучшает автодополнение.
+Деструктуризация: Использование const { data } = await axiosInstance.get() для получения только данных.
+Authorization заголовок: В примере добавляется пустой токен, в реальном приложении нужно использовать реальный токен из хранилища.__
+
+
+
+
+
+📜 Отчет по домашнему заданию: hw/hw5/task1/cars
+Дата: 11 июля 2026 г.
+
+Тема: CRUD приложение для автомобилей с использованием React Router, Axios, react-hook-form и Joi валидации.
+
+Краткое описание: Домашнее задание по теме форм и работы с API (соответствует лекциям lesson5). Реализовано приложение для работы с автомобилями с двумя страницами: страница со списком автомобилей и страница создания нового автомобиля. Используется React Router для навигации, Axios для HTTP-запросов к API, react-hook-form с Joi валидацией для формы создания. Приложение имеет структуру с Layout, компонентами, сервисами, моделями и валидаторами.
+
+Основные изменения/функциональность:
+
+Создана структура приложения с папками: components, pages, router, services, models, validators, layout.
+В routes.tsx настроены маршруты: /cars для списка автомобилей, /create для создания.
+Создан MainLayout с MenuComponent и <Outlet/> для навигации.
+В api.service.ts создан axios инстанс с baseURL: 'http://owu.linkpc.net/carsAPI/v1' и методы getCars (GET) и createCarPage (POST).
+В ICar.ts создан интерфейс автомобиля с полями: id, brand, price, year, model, description, image.
+В CarValidators.ts создана Joi схема валидации для полей brand, model, year, price с кастомными сообщениями.
+В CarsComponent загружается список автомобилей через getCars() и отображается через map в CarComponent.
+В CreateCarsComponent используется react-hook-form с joiResolver для валидации формы создания автомобиля.
+При успешной отправке формы данные отправляются на сервер через createCarPage().
+Код:
+
+
+
+typescript
+// src/router/routes.tsx — Настройка маршрутов
+import { createBrowserRouter } from "react-router-dom";
+import { MainLayout } from "../layout/MainLayout";
+import { CarsPage } from "../pages/CarsPage";
+import { CreateCarPage } from "../pages/CreateCarPage";
+ 
+export const routes = createBrowserRouter([
+    {
+        path: "/", element: <MainLayout />, children: [
+            { path: "cars", element: <CarsPage /> },
+            { path: "create", element: <CreateCarPage /> },
+        ],
+    },
+]);
+
+
+typescript
+// src/layout/MainLayout.tsx — Layout с меню
+import { Outlet } from "react-router-dom";
+import { MenuComponent } from "../components/menu/MenuComponent";
+ 
+export const MainLayout = () => {
+    return (
+        <div>
+            <MenuComponent />
+            <hr />
+            <Outlet />
+        </div>
+    );
+};
+
+
+typescript
+// src/components/menu/MenuComponent.tsx — Меню навигации
+import { Link } from "react-router-dom";
+ 
+export const MenuComponent = () => {
+    return (
+        <ul>
+            <li><Link to={"/"}>Home</Link></li>
+            <li><Link to={"/cars"}>Cars</Link></li>
+            <li><Link to={"/create"}>Create Car</Link></li>
+        </ul>
+    );
+};
+
+
+typescript
+// src/services/api.service.ts — Axios сервис
+import axios from "axios";
+import type { ICar } from "../models/ICar";
+ 
+export const axiosInstance = axios.create({
+    baseURL: 'http://owu.linkpc.net/carsAPI/v1',
+    headers: { 'Content-Type': 'application/json' },
+});
+ 
+export const getCars = async (): Promise<ICar[]> => {
+    const axiosResponse = await axiosInstance.get<ICar[]>('/cars');
+    return axiosResponse.data;
+}
+ 
+export const createCarPage = async (car: ICar): Promise<ICar> => {
+    const axiosResponse = await axiosInstance.post<ICar>('/cars', car);
+    return axiosResponse.data;
+}
+
+
+typescript
+// src/models/ICar.ts — Интерфейс автомобиля
+export interface ICar {
+    id?: number;
+    brand: string;
+    price: number;
+    year: number;
+    model: string;
+    description: string;
+    image: string;
+}
+
+
+typescript
+// src/validators/CarValidators.ts — Joi схема валидации
+import * as joi from 'joi'
+ 
+export const CarValidators = joi.object({
+    brand: joi.string().min(1).max(20).required().messages({
+        'string.empty': 'Brand is required',
+        'string.min': 'Brand must be at least 1 character',
+        'string.max': 'Brand must be at most 20 characters'
+    }),
+    model: joi.string().min(1).max(20).required().messages({
+        'string.empty': 'Model is required',
+        'string.min': 'Model must be at least 1 character',
+        'string.max': 'Model must be at most 20 characters'
+    }),
+    year: joi.number().min(1990).max(new Date().getFullYear()).required().messages({
+        'number.base': 'Year must be a number',
+        'number.min': 'Year must be at least 1990',
+        'number.max': 'Year must be at most ' + new Date().getFullYear()
+    }),
+    price: joi.number().min(0).required().messages({
+        'number.base': 'Price must be a number',
+        'number.min': 'Price cannot be negative'
+    }),
+})
+
+
+typescript
+// src/components/cars-component/CarsComponent.tsx — Список автомобилей
+import { useState } from "react";
+import { getCars } from "../../services/api.service";
+import type { ICar } from "../../models/ICar";
+import { useEffect } from "react";
+import { CarComponent } from "./CarComponent";
+ 
+export const CarsComponent = () => {
+    const [cars, setCars] = useState<ICar[]>([]);
+ 
+    useEffect(() => {
+        getCars().then(cars => setCars(cars));
+    }, []);
+    return (
+        <div>
+            <ul>
+                {cars.map(car => <CarComponent key={car.id} car={car} />)}
+            </ul>
+        </div>
+    );
+};
+
+
+typescript
+// src/components/cars-component/CarComponent.tsx — Компонент автомобиля
+import type { ICar } from "../../models/ICar";
+import type { FC } from "react";
+ 
+interface PropsType {
+    car: ICar;
+}
+ 
+export const CarComponent: FC<PropsType> = ({ car }) => {
+    return (
+        <div className={'car-card'}>
+            <p>ID: {car.id}</p>
+            <p>Model: {car.model}</p>
+            <p>Year: {car.year}</p>
+            <p>Price: ${car.price}</p>
+            <p>Brand: {car.brand.toString()}</p>
+        </div>
+    );
+};
+
+
+typescript
+// src/components/create-cars-component/CreateCarsComponent.tsx — Форма создания
+import { useForm } from "react-hook-form";
+import type { ICar } from "../../models/ICar";
+import { CarValidators } from "../../validators/CarValidators";
+import { joiResolver } from "@hookform/resolvers/joi";
+import { createCarPage } from "../../services/api.service";
+ 
+export const CreateCarsComponent = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<ICar>({
+        mode: 'all', resolver: joiResolver(CarValidators)
+    })
+ 
+    const createHandler = (data: ICar) => {
+        createCarPage(data).then(res => {
+            console.log('The machine has been successfully created on the server', res);
+        });
+    }
+ 
+    return (
+        <div className={'form-container'}>
+            <form onSubmit={handleSubmit(createHandler)}>
+                <div className={'form-group'}>
+                    <label>Brand:</label>
+                    <input type="text" {...register('brand')} />
+                    <p className={'error-msg'}>{errors.brand?.message}</p>
+                </div>
+                <div className={'form-group'}>
+                    <label>Model:</label>
+                    <input type="text" {...register('model')} />
+                    <p className={'error-msg'}>{errors.model?.message}</p>
+                </div>
+                <div className={'form-group'}>
+                    <label>Year:</label>
+                    <input type="number" {...register('year', { valueAsNumber: true })} />
+                    <p className={'error-msg'}>{errors.year?.message}</p>
+                </div>
+                <div className={'form-group'}>
+                    <label>Price:</label>
+                    <input type="number" {...register('price', { valueAsNumber: true })} />
+                    <p className={'error-msg'}>{errors.price?.message}</p>
+                </div>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    <button type="submit">Submit</button>
+                    <button type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    );
+};
+_Изученные концепции/технологии:
+
+CRUD приложение: Создание приложения для работы с данными (Create, Read, Update, Delete).
+React Router: Использование маршрутизации для навигации между страницами.
+Layout паттерн: Использование Layout для общей структуры (меню) с Outlet для дочерних страниц.
+Axios сервис: Создание единого инстанса axios для всех HTTP-запросов.
+react-hook-form с Joi: Интеграция react-hook-form с Joi через joiResolver.
+Валидация формы: Joi валидация с кастомными сообщениями об ошибках.
+Динамические значения в Joi: Использование new Date().getFullYear() для динамического максимального значения года.
+Опциональные поля: Использование id?: number для опционального поля (id генерируется сервером).
+_Нюансы/Лучшие практики:
+
+Разделение ответственности: Сервисы, модели, валидаторы вынесены в отдельные папки.
+Типизация: Все компоненты и сервисы типизированы через TypeScript интерфейсы.
+valueAsNumber: Использование для числовых полей в react-hook-form.
+CSS классы: Использование CSS классов для стилизации (car-card, form-container, form-group, error-msg).
+Кнопка Cancel: В форме есть кнопка Cancel с type="button" для предотвращения отправки формы.
+API URL: Используется тестовый API http://owu.linkpc.net/carsAPI/v1 для работы с автомобилями.
+Логирование: При успешном создании автомобиля данные логируются в консоль.
+
+
+
+
+
+📜 Отчет по лекции: lessons/lesson6/authentication
+Дата: 11 июля 2026 г.
+
+Тема: Аутентификация в React, JWT токены, refresh токены, localStorage, axios интерсепторы, кастомные хуки.
+
+Краткое описание: Лекция демонстрирует реализацию аутентификации в React приложении с использованием JWT токенов. Реализованы функции login (получение access и refresh токенов), refresh (обновление токенов), и загрузка защищенных ресурсов. Токены хранятся в localStorage. Axios интерсептор автоматически добавляет Authorization заголовок для GET запросов. Создан кастомный хук useAuthRefresh для обновления токенов. Используется API dummyjson.com для аутентификации и получения продуктов.
+
+_Основные изменения/функциональность:
+
+В api.services.ts создан axios инстанс с baseURL: "https://dummyjson.com/auth".
+Реализована функция login для получения токенов (accessToken, refreshToken) и сохранения в localStorage.
+Реализована функция refresh для обновления токенов через refresh токен.
+Реализована функция loadAuthProducts для загрузки защищенных ресурсов (требует авторизации).
+Request interceptor добавляет Authorization заголовок с accessToken для всех GET запросов.
+В helpers.ts создана функция retrieveLocalStorage для типизированного получения данных из localStorage.
+В useAuthRefresh.ts создан кастомный хук для обновления токенов с состоянием loading и error.
+В models созданы интерфейсы: IUserWithTokens, ITokenPair, IProduct, IProductsResponseModelsType.
+В login реализована форма логина с использованием FormData.
+В auth-resources реализован компонент для загрузки и отображения защищенных продуктов с автоматическим refresh токенов.
+Код:
+
+
+
+typescript
+// src/services/api.services.ts — API сервис с аутентификацией
+import axios from "axios";
+import type { IUserWithTokens } from "../models/IUserWithTokens";
+import type { IProduct } from "../models/IProduct";
+import type { IProductsResponseModelsType } from "../models/IProductsResponseModelsType";
+import { retrieveLocalStorage } from "./helpers";
+import type { ITokenPair } from "../models/ITokenPair";
+ 
+type LoginData = {
+  username: string;
+  password: string;
+  expiresInMins: number;
+};
+ 
+const axiosInstance = axios.create({
+  baseURL: "https://dummyjson.com/auth",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+ 
+axiosInstance.interceptors.request.use((requestObject) => {
+    if(requestObject.method?.toUpperCase() === "GET") {
+       requestObject.headers.Authorization = 'Bearer ' + retrieveLocalStorage<IUserWithTokens>("user").accessToken;
+    }
+    return requestObject;
+})
+ 
+export const login = async ({username,password, expiresInMins,}: LoginData): Promise<IUserWithTokens> => {
+  const { data: userWithTokens } = await axiosInstance.post<IUserWithTokens>("/login",{ username, password, expiresInMins });
+  console.log("userWithTokens", userWithTokens);
+  localStorage.setItem("user", JSON.stringify(userWithTokens));
+  return userWithTokens;
+};
+ 
+export const loadAuthProducts = async (): Promise<IProduct[]> => {
+  const { data } = await axiosInstance.get<IProductsResponseModelsType>("https://dummyjson.com/products");
+  console.log(data.products);
+  return data.products;
+};
+ 
+export const refresh = async () => {
+  const iUserWithTokens = retrieveLocalStorage<IUserWithTokens>("user");
+  const { data: {accessToken, refreshToken} } = await axiosInstance.post<ITokenPair>("/refresh", {
+    refreshToken: iUserWithTokens.refreshToken,
+    expiresInMins: 5,
+  });
+  iUserWithTokens.accessToken = accessToken;
+  iUserWithTokens.refreshToken = refreshToken;
+  localStorage.setItem("user", JSON.stringify(iUserWithTokens));
+  return iUserWithTokens;
+};
+
+
+typescript
+// src/services/helpers.ts — Хелпер для localStorage
+export const retrieveLocalStorage = < T >(key: string) => {
+const object = localStorage.getItem(key) || '';
+if(!object){
+    return {} as T;
+}
+const parse = JSON.parse(object);
+return parse as T;
+}
+
+
+typescript
+// src/hooks/useAuthRefresh.ts — Кастомный хук для refresh токенов
+import { useState } from "react";
+import { refresh } from "../services/api.services";
+import type { IUserWithTokens } from "../models/IUserWithTokens";
+ 
+export const useAuthRefresh = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+ 
+  const handleRefresh = async (): Promise<IUserWithTokens | null> => {
+    setIsLoading(true);
+    setError(null);
+ 
+    try {
+      const result = await refresh();
+      return result;
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "Refresh failed";
+      setError(errorMessage);
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+ 
+  return { handleRefresh, isLoading, error };
+};
+
+
+typescript
+// src/models/IUserWithTokens.ts — Интерфейс пользователя с токенами
+export interface IUserWithTokens {
+  id: number;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  image: string;
+  accessToken: string;
+  refreshToken: string;
+}
+
+
+typescript
+// src/models/ITokenPair.ts — Интерфейс пары токенов
+export interface ITokenPair {
+  accessToken: string;
+  refreshToken: string;
+}
+
+
+typescript
+// src/components/login/LoginComponent.tsx — Компонент логина
+import { useState } from "react";
+import { login } from "../../services/api.services";
+import { LoginFormComponent } from "./LoginFormComponent";
+ 
+export const LoginComponent = () => {
+  const [message, setMessage] = useState<string>("");
+ 
+  const handleLogin = async (username: string, password: string) => {
+    try {
+      await login({ username, password, expiresInMins: 30 });
+      setMessage("Login successful!");
+    } catch (error) {
+      console.error("Login error:", error);
+      setMessage("Login failed!");
+    }
+  };
+ 
+  return (
+    <>
+      <h1>Login Component</h1>
+      <LoginFormComponent onLogin={handleLogin} />
+      {message && <p>{message}</p>}
+    </>
+  );
+};
+
+
+typescript
+// src/components/login/LoginFormComponent.tsx — Форма логина
+import { type FC } from "react";
+ 
+type PropsType = {
+  onLogin: (username: string, password: string) => void;
+};
+ 
+export const LoginFormComponent: FC<PropsType> = ({ onLogin }) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
+    onLogin(username, password);
+  };
+ 
+  return (
+    <form onSubmit={handleSubmit}>
+      <input name="username" placeholder="Username" required />
+      <input name="password" type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  );
+};
+
+
+typescript
+// src/components/auth-resources/AuthResourcesListComponent.tsx — Список защищенных ресурсов
+import { useEffect, useState } from "react";
+import { loadAuthProducts } from "../../services/api.services";
+import type { IProduct } from "../../models/IProduct";
+import { AuthResourceComponent } from "./AuthResourceComponent";
+import { useAuthRefresh } from "../../hooks/useAuthRefresh";
+ 
+export const AuthResourcesListComponent = () => {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { handleRefresh } = useAuthRefresh();
+ 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      setError(null);
+ 
+      try {
+        await handleRefresh();
+        const productsData = await loadAuthProducts();
+        setProducts(productsData);
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to load products";
+        setError(errorMessage);
+        console.log("error", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+ 
+    fetchProducts();
+  }, []);
+ 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+ 
+  return (
+    <div>
+      {products.map((product) => (
+        <AuthResourceComponent key={product.id} product={product} />
+      ))}
+    </div>
+  );
+};
+_Изученные концепции/технологии:
+
+JWT (JSON Web Tokens): Токены для аутентификации, содержащие зашифрованную информацию о пользователе.
+Access Token: Кратковременный токен для доступа к защищенным ресурсам.
+Refresh Token: Долговременный токен для получения нового access токена.
+localStorage: Хранилище браузера для сохранения токенов на клиенте.
+Axios Interceptors: Перехватчики для модификации запросов (добавление Authorization заголовка).
+Кастомные хуки: Создание переиспользуемых хуков для сложной логики (refresh токенов).
+FormData: API для сбора данных из формы.
+Типизированные generics: Использование <T> для типизации функций с динамическими типами.
+_Нюансы/Лучшие практики:
+
+Хранение токенов: localStorage не самый безопасный способ хранения токенов (уязвим к XSS). В продакшене лучше использовать httpOnly cookies.
+Refresh токен: Access токены должны быть кратковременными (5-30 минут), refresh токены — долговременными (дни/недели).
+Authorization заголовок: Формат Bearer <token> является стандартом для JWT.
+Проверка метода: В интерсепторе проверяется метод запроса (GET) для добавления токена только к нужным запросам.
+Обработка ошибок: В кастомном хуке используется try/catch/finally для корректной обработки ошибок и состояния loading.
+FormData: Использование FormData упрощает сбор данных из формы без ручного управления state.
+DummyJSON API: Тестовый API поддерживает аутентификацию с refresh токенами.__
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons7-1/memo
+Дата: 12 июля 2026 г.
+
+Тема: React.memo для оптимизации ререндеров компонентов.
+
+Краткое описание: Лекция демонстрирует использование React.memo для оптимизации производительности компонентов. memo - это HOC (Higher-Order Component), который запоминает результат рендеринга компонента и предотвращает его ререндер, если пропсы не изменились. В примере UserComponent обернут в memo, что предотвращает его ререндер при обновлении родительского UsersComponent. Для демонстрации добавлены console.log в оба компонента.
+
+_Основные изменения/функциональность:
+
+В UserComponent.tsx компонент обернут в memo().
+В UsersComponent загружаются пользователи через fetch из jsonplaceholder.
+В оба компонента добавлены console.log для отслеживания ререндеров.
+При обновлении UsersComponent (например, при изменении state users) UserComponent не ререндерится благодаря memo.
+Код:
+
+
+
+typescript
+// src/App.tsx — Основной компонент
+import './App.css'
+import { UsersComponent } from './components/UsersComponent'
+ 
+function App() {
+  console.log("App component rendered");
+  return (
+    <>
+        <UsersComponent />
+    </>
+  )
+}
+ 
+export default App
+
+
+typescript
+// src/components/UsersComponent.tsx — Компонент с загрузкой пользователей
+import { UserComponent } from "./UserComponent";
+import { useEffect, useState } from "react";
+ 
+export const UsersComponent = () => {
+    const [users, setUsers] = useState([]);
+ 
+    useEffect(() => {
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(value => value.json())
+            .then(value => setUsers(value))
+            .catch(reason => console.log(reason));
+    }, []);
+ 
+    console.log("UsersComponent rendered");
+    return (
+        <>
+            <h1>Users Component</h1>
+            <UserComponent />
+        </>
+    );
+}
+
+
+typescript
+// src/components/UserComponent.tsx — Компонент обернутый в memo
+import { memo } from "react";
+ 
+export const UserComponent = memo(() => {
+    console.log("UserComponent rendered");
+    return (
+        <div>
+            UserComponent
+        </div>
+    );
+})
+_Изученные концепции/технологии:
+
+React.memo: HOC для мемоизации компонентов и предотвращения лишних ререндеров.
+Мемоизация: Запоминание результата рендеринга для переиспользования.
+Оптимизация производительности: Использование memo для компонентов с тяжелым рендерингом.
+Поверхностное сравнение пропсов: memo использует поверхностное сравнение (shallow comparison) пропсов по умолчанию.
+_Нюансы/Лучшие практики:
+
+Когда использовать memo: Для компонентов, которые часто ререндерятся без изменения пропсов, или имеют тяжелый рендеринг.
+Когда НЕ использовать memo: Для простых компонентов с быстрым рендерингом (накладные расходы memo могут превысить выгоду).
+Сравнение пропсов: memo сравнивает пропсы поверхностно. Для сложных объектов можно передать кастомную функцию сравнения.
+console.log для отладки: Использование console.log помогает понять когда компоненты ререндерятся.
+Вложенные компоненты: memo предотвращает ререндер дочернего компонента даже если родитель ререндерится.__
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons7-3/useMemo
+Дата: 12 июля 2026 г.
+
+Тема: React.useMemo для мемоизации значений, React.useCallback для мемоизации функций, работа с React.memo.
+
+Краткое описание: Лекция демонстрирует использование useMemo и useCallback для оптимизации производительности. useMemo мемоирует результат вычислений (в данном случае массив чисел), а useCallback мемоирует функцию. Оба хука используются вместе с React.memo на дочернем компоненте для предотвращения лишних ререндеров. Мемоизированные значения передаются как пропсы в UserComponent, который обернут в memo.
+
+_Основные изменения/функциональность:
+
+В UsersComponent используется useMemo для мемоизации массива [1, 2, 3, 4, 5] с пустым массивом зависимостей.
+В UsersComponent используется useCallback для мемоизации функции foo с пустым массивом зависимостей.
+Мемоизированные arr и foo передаются как пропсы в UserComponent.
+UserComponent обернут в memo и типизирован с пропами {foo: () => void, arr: number[]}.
+В UserComponent выводится в консоль массив arr для демонстрации.
+Console.log в обоих компонентах для отслеживания ререндеров.
+Код:
+
+
+
+typescript
+// src/App.tsx — Основной компонент
+import './App.css'
+import { UsersComponent } from './components/UsersComponent'
+ 
+function App() {
+  console.log("App component rendered");
+  return (
+    <>
+        <UsersComponent />
+    </>
+  )
+}
+ 
+export default App
+
+
+typescript
+// src/components/UsersComponent.tsx — Компонент с useMemo и useCallback
+import { UserComponent } from "./UserComponent";
+import { useCallback, useEffect, useMemo, useState } from "react";
+ 
+export const UsersComponent = () => {
+    const [users, setUsers] = useState([]);
+ 
+    const arr: number[] = useMemo(() => {
+        return [1, 2, 3, 4, 5];
+    }, []);
+ 
+    const foo = useCallback(() => {
+        console.log("foo called");
+    }, []);
+ 
+    useEffect(() => {
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(value => value.json())
+            .then(value => setUsers(value))
+            .catch(reason => console.log(reason));
+    }, []);
+ 
+    console.log("UsersComponent rendered");
+    return (
+        <>
+            <h1>Users Component</h1>
+            <UserComponent foo={foo} arr={arr} />
+        </>
+    );
+}
+
+
+typescript
+// src/components/UserComponent.tsx — Компонент с memo и типизацией пропсов
+import { memo } from "react";
+import { FC } from "react";
+ 
+export const UserComponent:FC<{foo: () => void, arr: number[]}> = memo(({ arr }) => {
+    console.log("UserComponent rendered");
+    console.log(arr);
+    
+    return (
+        <div>
+            UserComponent
+        </div>
+    );
+})
+_Изученные концепции/технологии:
+
+useMemo: Хук для мемоизации значений (результатов вычислений). Пересчитывает значение только при изменении зависимостей.
+useCallback: Хук для мемоизации функций. Возвращает ту же функцию при неизменных зависимостях.
+Разница между useMemo и useCallback: useMemo мемоирует значение, useCallback мемоирует функцию (фактически useCallback(fn, deps) эквивалентен useMemo(() => fn, deps)).
+Синергия с React.memo: Мемоизированные пропсы предотвращают ререндер компонентов обернутых в memo.
+Пустой массив зависимостей: [] означает, что значение/функция вычисляется только один раз при монтировании.
+Типизация FC: Использование типа FC для функциональных компонентов с пропсами.
+_Нюансы/Лучшие практики:
+
+Когда использовать useMemo: Для тяжелых вычислений, которые не нужно повторять при каждом ререндере.
+Когда использовать useCallback: Для функций, которые передаются как пропсы в мемоизированные компоненты или используются в зависимостях других хуков.
+Зависимости: Важно правильно указывать зависимости в массиве зависимостей для корректной работы мемоизации.
+Не мемоизировать всё подряд: Мемоизация имеет накладные расходы. Использовать только там, где это действительно нужно.
+useCallback для пропсов: Особенно полезен при передаче функций в компоненты обернутые в memo для предотвращения их ререндера.__
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons7-4/custom-hooks
+Дата: 12 июля 2026 г.
+
+Тема: Кастомные хуки (Custom Hooks) в React для переиспользования логики.
+
+Краткое описание: Лекция демонстрирует создание и использование кастомных хуков в React. Кастомный хук useFetch создан для инкапсуляции логики загрузки данных с API. Хук использует useState и useEffect для управления состоянием и выполнения fetch-запроса. В UsersComponent используется этот хук вместо прямой реализации логики загрузки. Также сохранены примеры useMemo и useCallback из предыдущей лекции.
+
+_Основные изменения/функциональность:
+
+Создана папка src/hooks/ для хранения кастомных хуков.
+Создан файл useFetch.ts с кастомным хуком useFetch.
+В useFetch инкапсулирована логика загрузки пользователей из jsonplaceholder API.
+Хук возвращает массив пользователей.
+В UsersComponent используется useFetch() вместо прямой реализации useState и useEffect.
+Сохранены примеры useMemo для массива и useCallback для функции.
+В UserComponent добавлен проп item для отображения имени пользователя.
+_Код:
+
+
+
+typescript
+// src/hooks/useFetch.ts — Кастомный хук для загрузки данных
+import {useEffect, useState} from "react";
+ 
+export const useFetch = () => {
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(value => value.json())
+            .then(value => setUsers(value))
+            .catch(reason => console.log(reason));
+    }, []);
+ 
+    return users
+}
+
+
+typescript
+// src/components/UsersComponent.tsx — Использование кастомного хука
+import { UserComponent } from "./UserComponent";
+import { useCallback, useMemo } from "react";
+import { useFetch } from "../hooks/useFetch";
+ 
+export const UsersComponent = () => {
+    const users = useFetch();
+ 
+    const arr: number[] = useMemo(() => {
+        return [1, 2, 3, 4, 5];
+    }, []);
+ 
+    const foo = useCallback(() => {
+        console.log("foo called");
+    }, []);
+ 
+    console.log("UsersComponent rendered");
+    return (
+        <>
+            <h1>Users Component</h1>
+            {
+                users.map(value => <UserComponent item={value} foo={foo} arr={arr} key={value.id}/>)
+            }
+        </>
+    );
+}
+
+
+typescript
+// src/components/UserComponent.tsx — Компонент с мемоизацией
+import { memo } from "react";
+import { FC } from "react";
+ 
+export const UserComponent:FC<{foo: () => void, arr: number[], item: { name: string }}> = memo(({ arr, item }) => {
+    console.log("UserComponent rendered");
+    console.log(arr);
+    console.log(item);
+ 
+    return (
+        <div>
+           <>{item.name}</>
+        </div>
+    );
+})
+_Изученные концепции/технологии:
+
+Кастомные хуки (Custom Hooks): Функции, начинающиеся с "use", которые могут использовать другие хуки React.
+Инкапсуляция логики: Вынесение повторяющейся логики в переиспользуемые хуки.
+Переиспользование: Кастомные хуки можно использовать в нескольких компонентах.
+Правила хуков: Кастомные хуки должны следовать правилам хуков (вызываться только на верхнем уровне, только в React функциях).
+Соглашение именования: Имена кастомных хуков должны начинаться с "use" (например, useFetch, useAuth).
+_Нюансы/Лучшие практики:
+
+Разделение ответственности: Кастомные хуки позволяют разделить UI-логику и бизнес-логику.
+Тестирование: Кастомные хуки легче тестировать отдельно от компонентов.
+Параметризация: Хуки могут принимать параметры для настройки поведения (например, URL для fetch).
+Возврат значений: Хуки могут возвращать любые значения (state, функции, объекты).
+Композиция: Кастомные хуки могут использовать другие хуки внутри себя.
+Именование: Использование префикса "use" помогает IDE и разработчикам понимать, что это хук.
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons7-5/context-api
+Дата: 12 июля 2026 г.
+
+Тема: React Context API для глобального управления состоянием без проп-дрilling.
+
+Краткое описание: Лекция демонстрирует использование React Context API для передачи данных через дерево компонентов без явной передачи пропсов (prop-drilling). Создан MyContext с типизацией, содержащий значение счетчика и функцию инкремента. В App.tsx компоненты обернуты в MyContext.Provider. Глубоко вложенные компоненты LeftBranchA и RightBranchA используют useContext для доступа к контексту и отображения/изменения значения счетчика.
+
+_Основные изменения/функциональность:
+
+Создана папка src/context/ для хранения контекстов.
+В MyContext.tsx создан контекст с типизацией MyContextType.
+Контекст содержит counterValue: number и increment: (val: number) => void.
+Создан объект init с начальными значениями для контекста.
+В App.tsx используется useState для управления счетчиком.
+LeftBranch и RightBranch обернуты в MyContext.Provider с value содержащим counterValue и increment.
+В LeftBranchA используется useContext для чтения counterValue.
+В RightBranchA используется useContext для чтения counterValue и вызова increment.
+Кнопка в RightBranchA вызывает increment(counterValue) для увеличения счетчика.
+_Код:
+
+
+
+typescript
+// src/context/MyContext.tsx — Создание контекста
+import { createContext } from "react";
+ 
+type MyContextType = {
+    counterValue: number;
+    increment: (val: number) => void;
+};
+ 
+export const init = {
+    counterValue: 0,
+    increment: (val: number) => {
+        console.log(val);
+    }
+};
+ 
+export const MyContext = createContext<MyContextType>(init);
+
+
+typescript
+// src/App.tsx — Провайдер контекста
+import { LeftBranch } from './components/LeftBranch';
+import { RightBranch } from './components/RightBranch';
+import { init, MyContext } from './context/MyContext';
+import { useState } from 'react';
+import './App.css';
+ 
+function App() {
+  const [counter, setCounter] = useState<number>(init.counterValue);
+  return (
+    <>
+    <MyContext.Provider value={{
+        counterValue: counter,
+        increment: (val: number) => { 
+            setCounter(val + 1);
+        }}>
+ 
+        <LeftBranch />
+        <RightBranch />
+    </MyContext.Provider>
+    </>
+  )
+}
+ 
+export default App
+
+
+typescript
+// src/components/LeftBranch.tsx — Промежуточный компонент
+import { LeftBranchA } from "./LeftBranchA";
+ 
+export const LeftBranch = () => {
+    return (
+        <div>
+            LeftBranch
+            <LeftBranchA />
+        </div>
+    );
+};
+
+
+typescript
+// src/components/LeftBranchA.tsx — Компонент использующий контекст для чтения
+import { useContext } from "react";
+import { MyContext } from "../context/MyContext";
+ 
+export const LeftBranchA = () => {
+    const {counterValue} = useContext(MyContext);
+    return (
+        <div>
+            correct counter value left branch = {counterValue}
+        </div>
+    );
+};
+
+
+typescript
+// src/components/RightBranch.tsx — Промежуточный компонент
+import { RightBranchA } from "./RightBranchA";
+ 
+export const RightBranch = () => {
+    return (
+        <div>
+            RightBranch
+            <RightBranchA />
+        </div>
+    );
+};
+
+
+typescript
+// src/components/RightBranchA.tsx — Компонент использующий контекст для чтения и записи
+import { useContext } from "react";
+import { MyContext } from "../context/MyContext";
+ 
+export const RightBranchA = () => {
+    const {counterValue, increment} = useContext(MyContext);
+    return (
+        <div>
+            RightBranchA
+            <button 
+                onClick={() => increment(counterValue)}>
+                    correct counter value right branch = {counterValue}
+            </button>
+        </div>
+    );
+};
+_Изученные концепции/технологии:
+
+React Context API: Способ передачи данных через дерево компонентов без явной передачи пропсов.
+createContext: Функция для создания контекста с типизацией.
+Context.Provider: Компонент-обертка, который предоставляет значение контекста дочерним компонентам.
+useContext: Хук для доступа к значению контекста внутри функционального компонента.
+Prop-drilling: Проблема передачи пропсов через множество уровней компонентов, которую решает Context.
+Глобальное состояние: Context подходит для глобального состояния (тема, авторизация, настройки).
+_Нюансы/Лучшие практики:
+
+Типизация контекста: Важно типизировать контекст через TypeScript для автодополнения и безопасности типов.
+Начальное значение: createContext требует начальное значение, которое используется если компонент не обернут в Provider.
+Разделение контекстов: Для разных типов данных лучше создавать отдельные контексты (например, AuthContext, ThemeContext).
+Производительность: Context вызывает ререндер всех потребителей при изменении значения. Для оптимизации можно разбить контекст на несколько или использовать useMemo.
+Когда использовать Context: Для глобального состояния, которое нужно во многих частях приложения. Не стоит использовать для локального состояния компонента.
+Структура компонентов: Промежуточные компоненты (LeftBranch, RightBranch) не получают пропсы, что упрощает код.
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons7-6/context-api-useMemo
+Дата: 12 июля 2026 г.
+
+Тема: Оптимизация Context API с useMemo для предотвращения лишних ререндеров.
+
+Краткое описание: Лекция демонстрирует использование useMemo в сочетании с Context API для оптимизации производительности. В LeftBranch добавлен пример useMemo с тяжелым вычислением (цикл 1000 итераций) для демонстрации мемоизации. Остальная структура контекста осталась такой же, как в предыдущей лекции. Цель - показать, что useMemo может использоваться для оптимизации вычислений внутри компонентов, которые используют контекст.
+
+_Основные изменения/функциональность:
+
+В LeftBranch.tsx добавлен useMemo с тяжелым вычислением (цикл от 0 до 1000 с console.log).
+useMemo имеет пустой массив зависимостей [], поэтому вычисление выполняется только один раз.
+Результат useMemo сохраняется в переменную memo, но не используется в JSX (демонстрационный пример).
+Остальная структура контекста идентична предыдущей лекции:
+MyContext с counterValue и increment
+LeftBranchA использует useContext для чтения counterValue
+RightBranchA использует useContext для чтения и изменения счетчика
+_Код:
+
+
+
+typescript
+// src/context/MyContext.tsx — Контекст (без изменений)
+import { createContext } from "react";
+ 
+type MyContextType = {
+    counterValue: number;
+    increment: (val: number) => void;
+};
+ 
+export const init = {
+    counterValue: 0,
+    increment: (val: number) => {
+        console.log(val);
+    }
+};
+ 
+export const MyContext = createContext<MyContextType>(init);
+
+
+typescript
+// src/App.tsx — Провайдер контекста (без изменений)
+import { LeftBranch } from './components/LeftBranch';
+import { RightBranch } from './components/RightBranch';
+import { init, MyContext } from './context/MyContext';
+import { useState } from 'react';
+import './App.css';
+ 
+function App() {
+  const [counter, setCounter] = useState<number>(init.counterValue);
+  return (
+    <>
+    <MyContext.Provider value={{
+        counterValue: counter,
+        increment: (val: number) => { 
+            setCounter(val + 1);
+        }}>
+ 
+        <LeftBranch />
+        <RightBranch />
+    </MyContext.Provider>
+    </>
+  )
+}
+ 
+export default App
+
+
+typescript
+// src/components/LeftBranch.tsx — Компонент с useMemo
+import { useMemo } from "react";
+import { LeftBranchA } from "./LeftBranchA";
+ 
+export const LeftBranch = () => {
+    const memo = useMemo(() => {
+        for(let i = 0; i < 1000; i++) {
+            console.log(i);
+        }
+        console.log('LeftBranch rendered');
+        return 'LeftBranch';
+    }, []);
+ 
+    return (
+        <div>
+            LeftBranch
+            <LeftBranchA />
+        </div>
+    );
+};
+
+
+typescript
+// src/components/LeftBranchA.tsx — Компонент использующий контекст (без изменений)
+import { useContext } from "react";
+import { MyContext } from "../context/MyContext";
+ 
+export const LeftBranchA = () => {
+    const {counterValue} = useContext(MyContext);
+    return (
+        <div>
+            correct counter value left branch = {counterValue}
+        </div>
+    );
+};
+
+
+typescript
+// src/components/RightBranch.tsx — Промежуточный компонент (без изменений)
+import { RightBranchA } from "./RightBranchA";
+ 
+export const RightBranch = () => {
+    return (
+        <div>
+            RightBranch
+            <RightBranchA />
+        </div>
+    );
+};
+
+
+typescript
+// src/components/RightBranchA.tsx — Компонент с изменением счетчика (без изменений)
+import { useContext } from "react";
+import { MyContext } from "../context/MyContext";
+ 
+export const RightBranchA = () => {
+    const {counterValue, increment} = useContext(MyContext);
+    return (
+        <div>
+            RightBranchA
+            <button 
+                onClick={() => increment(counterValue)}>
+                    correct counter value right branch = {counterValue}
+            </button>
+        </div>
+    );
+};
+_Изученные концепции/технологии:
+
+useMemo с Context: Использование useMemo для оптимизации вычислений внутри компонентов, которые используют контекст.
+Тяжелые вычисления: useMemo полезен для мемоизации тяжелых вычислений, которые не нужно повторять при каждом ререндере.
+Пустой массив зависимостей: [] означает, что вычисление выполняется только один раз при монтировании.
+Оптимизация производительности: useMemo предотвращает повторное выполнение тяжелых вычислений при ререндерах компонента.
+_Нюансы/Лучшие практики:
+
+useMemo для value в Provider: В реальных приложениях useMemo чаще используется для мемоизации value, передаваемого в Context.Provider, чтобы предотвратить ререндер всех потребителей при изменении родительского компонента.
+Тяжелые вычисления: useMemo оправдан только для действительно тяжелых вычислений. Для простых операций накладные расходы могут превысить выгоду.
+Использование результата: В данном примере результат useMemo не используется в JSX, что является демонстрационным. В реальном коде результат должен использоваться.
+Оптимизация Context: Основная проблема Context - ререндер всех потребителей при изменении value. Для оптимизации можно:
+Разделить контекст на несколько (один для чтения, другой для записи)
+Использовать useMemo для value в Provider
+Использовать библиотеки типа Zustand или Redux для сложного состояния.
+
+
+
+
+
+📜 Отчет по домашнему заданию: hw/hw7/task1
+Дата: 12 июля 2026 г.
+
+Тема: Кастомный хук useFetch с AbortController, типизация generics, обработка состояний загрузки.
+
+Краткое описание: Домашнее задание по теме кастомных хуков и оптимизации (соответствует лекциям lesson7). Реализован универсальный кастомный хук useFetch с поддержкой generics для типизации данных. Хук использует AbortController для отмены запросов при размонтировании компонента. Реализована полная обработка состояний: loading, error, empty. Приложение загружает пользователей из jsonplaceholder API и отображает их в виде сетки карточек.
+
+_Основные изменения/функциональность:
+
+Создан универсальный кастомный хук useFetch в useFetch.tsx с поддержкой generics.
+Хук принимает URL и возвращает объект { data, isLoading, error }.
+Использован AbortController для отмены fetch-запросов при размонтировании компонента.
+В cleanup функции useEffect вызывается controller.abort().
+Обработка ошибок с проверкой на AbortError (игнорируется при отмене).
+Проверка response.ok для выброса ошибки при неудачном HTTP статусе.
+В user.ts создан интерфейс User с полями: id, name, username, email.
+В UserList.tsx реализована обработка трех состояний: loading, error, empty.
+В UserItem.tsx создан компонент для отображения отдельного пользователя.
+В App.tsx используется useFetch<User[]> для загрузки пользователей.
+Код:
+
+
+
+typescript
+// src/hooks/useFetch.tsx — Универсальный хук с AbortController
+import { useEffect, useState } from "react";
+ 
+interface UseFetchResult<T> {
+  data: T | undefined;
+  isLoading: boolean;
+  error: Error | null;
+}
+ 
+export const useFetch = <T,>(url: string): UseFetchResult<T> => {
+  const [data, setData] = useState<T>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+ 
+  useEffect(() => {
+    const controller = new AbortController();
+ 
+    setIsLoading(true);
+    setError(null);
+ 
+    fetch(url, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP ошибка: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((value) => {
+        setData(value);
+      })
+      .catch((err) => {
+        if (err.name !== 'AbortError') {
+          setError(err);
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+ 
+    return () => {
+      controller.abort();
+    };
+  }, [url]);
+ 
+  return { data, isLoading, error };
+}
+
+
+typescript
+// src/types/user.ts — Интерфейс пользователя
+export interface User {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+}
+
+
+typescript
+// src/types/index.ts — Экспорт типов
+export * from './user';
+
+
+typescript
+// src/App.tsx — Использование useFetch
+import React from 'react';
+import './App.css';
+import { useFetch } from './hooks/useFetch';
+import { UserList } from './components/UserList';
+import type { User } from './types/user';
+ 
+const App = () => {
+  const { data: users, isLoading, error } = useFetch<User[]>('https://jsonplaceholder.typicode.com/users');
+ 
+  return (
+    <div className="app">
+      <h1>React Fetch Example</h1>
+      <UserList users={users} isLoading={isLoading} error={error} />
+    </div>
+  );
+}
+ 
+export default App;
+
+
+typescript
+// src/components/UserList.tsx — Компонент списка с обработкой состояний
+import type { User } from '../types/user';
+import { UserItem } from './UserItem';
+ 
+interface UserListProps {
+  users: User[] | undefined;
+  isLoading: boolean;
+  error: Error | null;
+}
+ 
+export const UserList = ({ users, isLoading, error }: UserListProps) => {
+  if (isLoading) {
+    return <div className="loading">Загрузка пользователей...</div>;
+  }
+ 
+  if (error) {
+    return <div className="error">Ошибка загрузки: {error.message}</div>;
+  }
+ 
+  if (!users || users.length === 0) {
+    return <div className="empty">Пользователи не найдены</div>;
+  }
+ 
+  return (
+    <div className="user-list">
+      <h2>Список пользователей</h2>
+      <div className="user-grid">
+        {users.map((user) => (
+          <UserItem key={user.id} user={user} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+typescript
+// src/components/UserItem.tsx — Компонент карточки пользователя
+import type { User } from '../types/user';
+ 
+interface UserItemProps {
+  user: User;
+}
+ 
+export const UserItem = ({ user }: UserItemProps) => {
+  return (
+    <div className="user-item">
+      <h3>{user.name}</h3>
+      <p>{user.email}</p>
+      <span>@{user.username}</span>
+    </div>
+  );
+}
+_Изученные концепции/технологии:
+
+Generics в TypeScript: Использование <T> для создания универсальных функций и хуков.
+AbortController: API для отмены асинхронных операций (fetch-запросов).
+Cleanup функция: Функция, возвращаемая из useEffect, для очистки при размонтировании.
+AbortError: Специальная ошибка при отмене запроса, которую нужно игнорировать.
+Обработка HTTP ошибок: Проверка response.ok для обработки неуспешных ответов.
+Состояния UI: Loading, Error, Empty - три основных состояния при загрузке данных.
+Типизация пропсов: Использование интерфейсов для типизации пропсов компонентов.
+_Нюансы/Лучшие практики:
+
+AbortController: Важно использовать для предотвращения memory leaks при размонтировании компонента до завершения запроса.
+Проверка AbortError: При отмене запроса выбрасывается AbortError, который не нужно показывать пользователю.
+Generics: Позволяют создавать переиспользуемые хуки с автоматической типизацией данных.
+Обработка ошибок: Всегда проверяйте response.ok для HTTP ошибок (404, 500 и т.д.).
+Состояния UI: Отображайте разные UI для разных состояний (loading spinner, error message, empty state).
+Разделение компонентов: UserList отвечает за логику отображения списка, UserItem - за отображение отдельного элемента.__
+
+
+
+
+
+📜 Отчет по домашнему заданию: hw/hw7/task2
+Дата: 12 июля 2026 г.
+
+Тема: Context API для управления темой приложения, глубокое вложение компонентов, изменение глобального состояния.
+
+Краткое описание: Домашнее задание по теме Context API (соответствует лекциям lesson7). Реализована система управления темой (light/dark) с использованием Context API. Создан MyContext с типизацией, содержащий текущую тему и функцию для её изменения. Компоненты ComponentA и ComponentB являются промежуточными, а глубоко вложенные ComponentAA и ComponentBB используют контекст: ComponentAA читает тему и применяет CSS класс, ComponentBB предоставляет кнопки для изменения темы.
+
+Основные изменения/функциональность:
+
+В MyContextProvaider.tsx создан контекст с типом ContextValueType (theme: string, changeTheme: function).
+Создано значение по умолчанию с theme 'light' и заглушкой для changeTheme.
+В App.tsx используется useState для управления themeColor.
+ComponentA и ComponentB обернуты в MyContext.Provider с value содержащим theme и changeTheme.
+ComponentA → ComponentAA: глубоко вложенный компонент, который использует useContext для чтения темы.
+ComponentB → ComponentBB: глубоко вложенный компонент, который использует useContext для получения функции changeTheme.
+В ComponentAA тема применяется как CSS класс к div.
+В ComponentBB две кнопки для переключения между 'light' и 'dark' темами.
+Промежуточные компоненты (ComponentA, ComponentB) не получают пропсы, что демонстрирует преимущество Context API.
+Код:
+
+
+
+typescript
+// src/context/MyContextProvaider.tsx — Контекст для темы
+import { createContext } from 'react';
+ 
+type ContextValueType = {
+    theme: string,
+    changeTheme: (theme: string) => void
+}
+ 
+const defaultValue: ContextValueType = {
+    theme: 'light',
+    changeTheme: (theme: string) => {
+        console.log('Default changeTheme function called with theme:', theme)
+    }
+}
+ 
+export const MyContext = createContext<ContextValueType>(defaultValue);
+
+
+typescript
+// src/App.tsx — Провайдер контекста
+import React from 'react';
+import { ComponentA } from './components/componentA';
+import { ComponentB } from './components/componentB';
+import { MyContext } from './context/MyContextProvaider';
+import { useState } from 'react';
+ 
+export const App = () => {
+  const [themeColor, setThemeColor] = useState<string>('light');
+  
+  return (
+    <div>
+      <MyContext.Provider value={{ theme: themeColor, changeTheme: (themeValue: string) => {
+        setThemeColor(themeValue)
+      }}}>
+        <ComponentA/>
+        <ComponentB/>
+      </MyContext.Provider>
+    </div>
+  );
+}
+ 
+export default App;
+
+
+typescript
+// src/components/componentA.tsx — Промежуточный компонент
+import React from 'react';
+import { ComponentAA } from './componentAA';
+ 
+export const ComponentA = () => {
+  return (
+    <div>    
+      <ComponentAA/>
+    </div>
+  );
+};
+
+
+typescript
+// src/components/componentAA.tsx — Компонент использующий тему
+import React from 'react';
+import { useContext } from 'react';
+import { MyContext } from '../context/MyContextProvaider';
+import './componentAA.css';
+ 
+export const ComponentAA = () => {
+  const { theme } = useContext(MyContext);
+  return (
+    <div className={theme}>
+      <h1>This is ComponentAA {theme}</h1>
+    </div>
+  );
+};
+
+
+typescript
+// src/components/componentB.tsx — Промежуточный компонент
+import React from 'react';
+import { ComponentBB } from './componentBB';
+ 
+export const ComponentB = () => {
+  return (
+    <div>    
+      <ComponentBB/>
+    </div>
+  );
+};
+
+
+typescript
+// src/components/componentBB.tsx — Компонент для изменения темы
+import React, { useContext } from 'react';
+import { MyContext } from '../context/MyContextProvaider';
+ 
+export const ComponentBB = () => {
+  const { changeTheme } = useContext(MyContext);
+ 
+  const handlerDark = () => {
+    changeTheme('dark');
+  }
+ 
+  const handlerLight = () => {
+    changeTheme('light');
+  }
+ 
+  return (
+    <div>    
+      <button onClick={handlerDark}>Change Theme to dark</button>
+      <button onClick={handlerLight}>Change Theme to light</button>
+    </div>
+  );
+};
+_Изученные концепции/технологии:
+
+Context API для тем: Использование контекста для глобального состояния темы приложения.
+Глубокое вложение: Демонстрация того, что контекст позволяет передавать данные через множество уровней компонентов без prop-drilling.
+Разделение ответственности: Один компонент читает состояние, другой изменяет его.
+CSS классы из контекста: Применение динамических CSS классов на основе значения из контекста.
+Типизация контекста: Использование TypeScript для типизации контекста и его значений.
+_Нюансы/Лучшие практики:
+
+Промежуточные компоненты: Они не знают о контексте и не получают пропсы, что упрощает их код.
+Разделение чтения и записи: Компоненты, которые только читают состояние, и компоненты, которые его изменяют.
+Значение по умолчанию: Важно предоставить корректное значение по умолчанию для TypeScript и для случаев, когда компонент не обернут в Provider.
+Именование файлов: Название файла MyContextProvaider.tsx содержит опечатку (Provaider вместо Provider).
+CSS файлы: Для стилизации разных тем можно использовать CSS модули или styled-components для более сложной логики.
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons8-1/Redux-Toolkit
+Дата: 12 июля 2026 г.
+
+Тема: Redux Toolkit для управления состоянием, createSlice, configureStore, Provider, типизация Redux.
+
+Краткое описание: Лекция демонстрирует базовую настройку Redux Toolkit для управления состоянием в React приложении. Создан store с configureStore, slice с createSlice для управления пользователями. Настроена типизация Redux с TypeScript. Приложение обернуто в Provider. В компоненте UsersPages используется useDispatch для dispatch действий и useAppSelector для чтения состояния из Redux. Также реализована структура с сервисами, моделями, константами URL и маршрутизацией.
+
+Основные изменения/функциональность:
+
+В main.tsx настроен Redux Toolkit:
+Импортированы configureStore, createSlice, PayloadAction из @reduxjs/toolkit
+Импортированы Provider и useSelector из react-redux
+Создан тип UserSliceType с полем users: IUser[]
+Создан initialState с пустым массивом пользователей
+Создан userSlice через createSlice с reducer loadUsers
+Настроен store через configureStore с userSlice.reducer
+Экспортированы userSlicsActions (actions из slice)
+Создан типизированный хук useAppSelector через useSelector.withTypes
+Приложение обернуто в <Provider store={store}>
+В UsersPages.tsx:
+Использован useAppSelector для чтения state.userSlice
+Использован useDispatch для dispatch действий
+В useEffect загружаются пользователи через fetch и dispatch loadUsers
+Пользователи отображаются через map
+Создана структура папок: model/, services/, constans/, router/, layouts/, pages/, components/
+В src/model/ созданы интерфейсы: IUser, IPost, IAddress, ICompany, IGeo
+В api.service.ts созданы userService и postService для API запросов
+В urls.ts созданы константы URL с baseUrl
+В routes.tsx настроена маршрутизация с Layout и вложенными маршрутами
+В Layout.tsx создан Layout с Menu и Outlet
+В Menu.tsx создано меню навигации
+Код:
+
+
+
+typescript
+// src/main.tsx — Настройка Redux Toolkit
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import {RouterProvider} from "react-router-dom";
+import {routes} from "./router/routes.tsx";
+import type { IUser } from './model/IUser.ts';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import { useSelector } from 'react-redux';
+import type { ReternType } from '@reduxjs/toolkit';
+ 
+type UserSliceType = {
+    users: IUser[]
+}
+ 
+const initialState: UserSliceType = {
+    users: []
+}
+ 
+const userSlice = createSlice({
+    name: 'userSlice',
+    initialState: initialState,
+    reducers: {
+        loadUsers: (state, action: PayloadAction<IUser[]>) => {
+            state.users = action.payload;
+        }
+    }
+});
+ 
+const store = configureStore({
+    reducer: {
+        userSlice: userSlice.reducer
+    }
+});
+ 
+export const userSlicsActions = {
+    ...userSlice.actions
+}
+ 
+export const useAppSelector = useSelector.withTypes<ReternType<typeof store.getState>>()
+ 
+createRoot(document.getElementById('root')!).render(
+<Provider store={store}>
+<RouterProvider router={routes}/>
+</Provider>
+)
+
+
+typescript
+// src/pages/UsersPages.tsx — Использование Redux
+import { useDispatch } from "react-redux"
+import { useAppSelector, userSlicsActions } from "../main"
+import { useEffect } from "react"
+ 
+export const UsersPages = () => {
+const userSlice = useAppSelector(state => state.userSlice)
+const dispatch = useDispatch()
+ 
+useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+        .then(value => value.json())
+        .then(value => {
+            dispatch(userSlicsActions.loadUsers(value))
+        })
+}, [])
+    
+    return(
+        <div>
+            {
+                userSlice.users.map((user) => {
+                    return <div key={user.id}>{user.name}</div>
+                })
+            }
+        </div>
+    )
+}
+
+
+typescript
+// src/model/IUser.ts — Интерфейс пользователя
+import './ICompany.ts'
+import './IAddress.ts'
+ 
+export interface IUser {
+    id: number;
+    name: string;
+    username: string;
+    email: string;
+    address: IAddress;
+    phone: string;
+    website: string;
+    company: ICompany;
+}
+
+
+typescript
+// src/services/api.service.ts — API сервисы
+import type {IUser} from "../model/IUser.ts";
+import {urls} from "../constans/urls.ts";
+import type {IPost} from "../model/IPost.ts";
+ 
+const userService = {
+    getUsers: async (): Promise<IUser[]> => {
+        return await fetch(urls.users.allUsers)
+            .then(value => value.json())
+    }
+}
+export default userService;
+ 
+const postService = {
+    getAllPostsOfUserById: async (id: number): Promise<IPost[]> => {
+        return await fetch(urls.posts.userPostsById(id))
+            .then(value => value.json())
+    }
+}
+export {postService}
+
+
+typescript
+// src/constans/urls.ts — Константы URL
+const baseUrl = 'https://jsonplaceholder.typicode.com'
+ 
+const urls = {
+    users: {
+        allUsers: baseUrl + '/users',
+        byId: (id: number) => {
+            return baseUrl + '/' + id
+        }
+    },
+    posts: {
+        allPosts: baseUrl + '/posts',
+        byId: (id: number) => baseUrl + '/' + id,
+        userPostsById: (id: number) => baseUrl + '/posts?userId=' + id
+    }
+}
+export {urls}
+_Изученные концепции/технологии:
+
+Redux Toolkit: Официальная библиотека для управления состоянием в React, упрощающая настройку Redux.
+createSlice: Функция для создания slice (части store) с автоматической генерацией actions и reducers.
+configureStore: Функция для создания Redux store с предустановленными middleware.
+Provider: Компонент из react-redux для предоставления store всему приложению.
+useDispatch: Хук для получения dispatch функции для отправки actions.
+useSelector: Хук для чтения данных из store.
+PayloadAction: Тип для типизации payload в reducers.
+withTypes: Метод для типизации useSelector с типом store.
+Redux архитектура: Разделение на slices, actions, reducers, store.
+_Нюансы/Лучшие практики:
+
+Redux Toolkit vs Redux: Redux Toolkit упрощает настройку, автоматически настраивает Redux DevTools, thunk, immer.
+createSlice: Автоматически генерирует actions на основе имен reducers (например, reducer loadUsers генерирует action loadUsers).
+Immer: Redux Toolkit использует Immer под капотом, поэтому можно мутировать state напрямую в reducers.
+Типизация: Важно типизировать state, actions, и store для полной безопасности типов.
+useAppSelector: Типизированный хук обеспечивает автодополнение и проверку типов при чтении из store.
+Разделение слайсов: Для разных сущностей (users, posts) создаются отдельные slices.
+Константы URL: Вынесение URL в отдельный файл упрощает поддержку и изменение.
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons8-2/redux-toolkit-async-thunk
+Дата: 12 июля 2026 г.
+
+Тема: Redux Toolkit с createAsyncThunk для асинхронных действий, структура Redux папок, типизированные хуки.
+
+Краткое описание: Лекция демонстрирует использование createAsyncThunk для обработки асинхронных операций в Redux Toolkit. Redux логика вынесена в отдельную папку src/redax/ с подразделами: slices/, hooks/, store.tsx. Создан асинхронный thunk loadUsers для загрузки пользователей. В extraReducers обрабатываются состояния fulfilled и rejected. Созданы типизированные хуки useAppDispatch и useAppSelector для безопасной работы с Redux. В компоненте UsersPages используется dispatch асинхронного thunk вместо прямого fetch.
+
+Основные изменения/функциональность:
+
+Создана папка src/redax/ для Redux логики с подразделами:
+slices/ - для слайсов
+hooks/ - для типизированных хуков
+store.tsx - для конфигурации store
+В store.tsx:
+Настроен store через configureStore
+Экспортированы типы RootState и AppDispatch
+В userSlice.tsx:
+Импортирован createAsyncThunk из @reduxjs/toolkit
+Создан асинхронный thunk loadUsers через createAsyncThunk
+В thunk используется thunkAPI.fulfillWithValue для успешного результата
+В thunk используется thunkAPI.rejectWithValue для ошибки
+В extraReducers обрабатываются loadUsers.fulfilled и loadUsers.rejected
+При успешной загрузке пользователи сохраняются в state
+При ошибке логируются state и action
+В useAppDispatch.tsx:
+Создан типизированный хук через useDispatch.withTypes<AppDispatch>()
+В useAppSelector.tsx:
+Создан типизированный хук через useSelector.withTypes<RootState>()
+В UsersPages.tsx:
+Использован useAppDispatch вместо обычного useDispatch
+Использован useAppSelector вместо обычного useSelector
+В useEffect вызывается dispatch(userSlicsActions.loadUsers())
+Убран прямой fetch из компонента
+_Код:
+
+
+
+typescript
+// src/redax/store.tsx — Конфигурация store
+import { configureStore } from '@reduxjs/toolkit';
+import userSlice from './slices/userSlice/userSlice.tsx';
+ 
+export const store = configureStore({
+    reducer: {
+        userSlice: userSlice.reducer
+    }
+});
+ 
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+
+typescript
+// src/redax/slices/userSlice/userSlice.tsx — Slice с async thunk
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { IUser } from '../../../model/IUser.ts';
+ 
+type UserSliceType = {
+    users: IUser[]
+}
+ 
+const initialState: UserSliceType = {
+    users: []
+}
+ 
+export const loadUsers = createAsyncThunk(
+    'userSlice/loadUsers',
+    async (_, thunkAPI) => {
+        try {
+            const users = await fetch('https://jsonplaceholder.typicode.com/users')
+                .then(value => value.json())
+            return thunkAPI.fulfillWithValue(users)
+        } catch (e) {
+            return thunkAPI.rejectWithValue('error')
+        }
+    }
+)
+ 
+const userSlice = createSlice({
+    name: 'userSlice',
+    initialState: initialState,
+    reducers: {},
+    extraReducers: builder => {
+        builder
+            .addCase(loadUsers.fulfilled, (state, action: PayloadAction<IUser[]>) => {
+                state.users = action.payload
+            })
+            .addCase(loadUsers.rejected, (state, action) => {
+                console.log(state)
+                console.log(action)
+            })
+    }
+})
+ 
+export const userSlicsActions = {
+    ...userSlice.actions,
+    loadUsers
+}
+ 
+export default userSlice
+
+
+typescript
+// src/redax/hooks/useAppDispatch.tsx — Типизированный dispatch
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from '../store.tsx';
+ 
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+
+
+typescript
+// src/redax/hooks/useAppSelector.tsx — Типизированный selector
+import { useSelector } from 'react-redux';
+import type { RootState } from '../store.tsx';
+ 
+export const useAppSelector = useSelector.withTypes<RootState>();
+
+
+typescript
+// src/pages/UsersPages.tsx — Использование async thunk
+import { useEffect } from "react"
+import { useAppSelector } from "../redax/hooks/useAppSelector.tsx"
+import { userSlicsActions } from "../redax/slices/userSlice/userSlice.tsx"
+import { useAppDispatch } from "../redax/hooks/useAppDispatch.tsx"
+ 
+export const UsersPages = () => {
+    const userSlice = useAppSelector(state => state.userSlice)
+    const dispatch = useAppDispatch()
+ 
+    useEffect(() => {
+        dispatch(userSlicsActions.loadUsers())
+    }, [dispatch])
+    
+    return(
+        <div>
+            {
+                userSlice.users.map((user) => {
+                    return <div key={user.id}>{user.name}</div>
+                })
+            }
+        </div>
+    )
+}
+_Изученные концепции/технологии:
+
+createAsyncThunk: Функция Redux Toolkit для создания асинхронных thunks.
+extraReducers: Обработка действий, созданных внешними thunk (не reducers).
+thunkAPI: Объект с методами fulfillWithValue, rejectWithValue, dispatch, getState.
+fulfillWithValue: Возвращает успешный результат с payload.
+rejectWithValue: Возвращает ошибку с payload.
+Структура Redux папок: Организация Redux кода в отдельные папки (slices, hooks, store).
+Типизированные хуки: Создание типизированных версий useDispatch и useSelector.
+RootState и AppDispatch: Типы для состояния и dispatch функции.
+_Нюансы/Лучшие практики:
+
+Разделение ответственности: Вынесение Redux логики в отдельную папку улучшает структуру проекта.
+createAsyncThunk: Упрощает работу с асинхронными операциями по сравнению с ручным созданием thunks.
+extraReducers vs reducers: reducers для синхронных действий, extraReducers для асинхронных (thunk) и внешних действий.
+Обработка ошибок: Важно обрабатывать rejected состояние для отображения ошибок пользователю.
+Типизация: Типизированные хуки обеспечивают безопасность типов и автодополнение.
+Именование папки: Используется redax вместо redux (возможно опечатка или намеренное решение).
+Структура слайсов: Каждый slice в отдельной папке для масштабируемости.__
+
+
+
+
+
+📜 Отчет по лекции: lessons/lessons8-3/redux-toolkit-async-thunk-2
+Дата: 12 июля 2026 г.
+
+__Тема:** Расширенное использование createAsyncThunk, addMatcher, isFulfilled, isRejected, управление состоянием загрузки, динамические маршруты.
+
+Краткое описание: Лекция демонстрирует расширенное использование Redux Toolkit с несколькими асинхронными thunks и матчерами. Добавлен новый thunk loadUser для загрузки отдельного пользователя по ID. В состояние добавлены поля user и loadState. Использованы addMatcher с isFulfilled и isRejected для обработки общих случаев успешного выполнения и ошибок для нескольких thunks. Создана страница UserPage для отображения деталей пользователя с динамическим маршрутом. В UsersPages добавлено отображение состояния загрузки и ссылки на страницы пользователей.
+
+Основные изменения/функциональность:
+
+В userSlice.tsx:
+Добавлено поле user: IUser | null в UserSliceType для хранения отдельного пользователя
+Добавлено поле loadState: boolean для отслеживания состояния загрузки
+Создан новый thunk loadUser для загрузки пользователя по ID через createAsyncThunk
+Добавлен синхронный reducer changeLoadState для изменения loadState
+В extraReducers добавлена обработка loadUser.fulfilled для сохранения пользователя
+Использован addMatcher с isFulfilled(loadUsers, loadUser) для установки loadState = true при успешном выполнении любого из thunks
+Использован addMatcher с isRejected(loadUsers, loadUser) для логирования ошибок
+В UsersPages.tsx:
+Добавлен loadState из selector для отображения состояния загрузки
+Добавлено отображение "Loading..." когда loadState = false
+Пользователи отображаются как Link на /users/${user.id}
+В UserPage.tsx:
+Создана новая страница для отображения отдельного пользователя
+Используется useParams для получения userId из URL
+В useEffect вызывается dispatch(userSlicsActions.loadUser(id)) при изменении ID
+Отображается имя пользователя после загрузки
+В routes.tsx:
+Добавлен динамический маршрут /users/:userId для страницы пользователя
+Код:
+
+
+
+typescript
+// src/redax/slices/userSlice/userSlice.tsx — Расширенный slice с матчерами
+import { createSlice, createAsyncThunk, isFulfilled, isRejected } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { IUser } from '../../../model/IUser.ts';
+ 
+type UserSliceType = {
+    users: IUser[],
+    user: IUser | null,
+    loadState: boolean
+}
+ 
+const initialState: UserSliceType = {
+    users: [],
+    user: null,
+    loadState: false
+}
+ 
+export const loadUsers = createAsyncThunk(
+    'userSlice/loadUsers',
+    async (_, thunkAPI) => {
+        try {
+            const users = await fetch('https://jsonplaceholder.typicode.com/users')
+                .then(value => value.json())
+            return thunkAPI.fulfillWithValue(users)
+        } catch {
+            return thunkAPI.rejectWithValue('error')
+        }
+    }
+)
+ 
+export const loadUser = createAsyncThunk(
+    'userSlice/loadUser',
+    async (id: string, thunkAPI) => {
+        try {
+            const user = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+                .then(value => value.json())
+            return thunkAPI.fulfillWithValue(user)
+        } catch {
+            return thunkAPI.rejectWithValue('error')
+        }
+    }
+)
+ 
+const userSlice = createSlice({
+    name: 'userSlice',
+    initialState: initialState,
+    reducers: {
+        changeLoadState(state, action: PayloadAction<boolean>) {
+            state.loadState = action.payload
+        }
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(loadUsers.fulfilled, (state, action: PayloadAction<IUser[]>) => {
+                state.users = action.payload
+            })
+            .addCase(loadUsers.rejected, (state, action) => {
+                console.log(state)
+                console.log(action)
+            })
+            .addCase(loadUser.fulfilled, (state, action: PayloadAction<IUser>) => {
+                state.user = action.payload
+            })
+ 
+            .addMatcher(isFulfilled(loadUsers, loadUser), (state) => {
+                state.loadState = true
+            })
+            .addMatcher(isRejected(loadUsers, loadUser), (state) => {
+                console.log(state)
+            })
+    },
+});
+ 
+export const userSlicsActions = {
+    ...userSlice.actions,
+    loadUsers, 
+    loadUser
+}
+ 
+export default userSlice
+
+
+typescript
+// src/pages/UsersPages.tsx — Список пользователей с ссылками
+import { useEffect } from "react"
+import { Link } from "react-router-dom"
+import { useAppSelector } from "../redax/hooks/useAppSelector.tsx"
+import { userSlicsActions } from "../redax/slices/userSlice/userSlice.tsx"
+import { useAppDispatch } from "../redax/hooks/useAppDispatch.tsx"
+ 
+export const UsersPages = () => {
+    const {users, loadState} = useAppSelector(state => state.userSlice)
+    const dispatch = useAppDispatch()
+ 
+    useEffect(() => {
+        dispatch(userSlicsActions.loadUsers())
+    }, [dispatch])
+    
+    return(
+        <div>
+            {!loadState && <div>Loading...</div>}
+            {
+                users.map((user) => {
+                    return <div key={user.id}><Link to={`/users/${user.id}`}>{user.name}</Link></div>
+                })
+            }
+        </div>
+    )
+}
+
+
+typescript
+// src/pages/UserPage.tsx — Страница отдельного пользователя
+import { useEffect } from "react"
+import { useAppSelector } from "../redax/hooks/useAppSelector.tsx"
+import { userSlicsActions } from "../redax/slices/userSlice/userSlice.tsx"
+import { useAppDispatch } from "../redax/hooks/useAppDispatch.tsx"
+import { useParams } from "react-router-dom"
+ 
+export const UserPage = () => {
+    const {userId: id} = useParams()
+    const {loadState} = useAppSelector(state => state.userSlice)
+    const dispatch = useAppDispatch()
+ 
+    useEffect(() => {
+        if (id) {
+            dispatch(userSlicsActions.loadUser(id))
+        }
+    }, [id])
+ 
+    const user = useAppSelector(state => state.userSlice.user)
+    return(
+        <div>
+            <h2>user {id}</h2>
+            {!loadState && <div>Loading...</div>}
+            {user && <div>{user.name}</div>}
+        </div>
+    )
+}
+
+
+typescript
+// src/router/routes.tsx — Маршруты с динамическим параметром
+import {createBrowserRouter} from "react-router-dom";
+import {Layout} from "../layouts/Layout";
+import {HomePage} from "../pages/HomePage";
+import {UsersPages} from "../pages/UsersPages";
+import {PostsPage} from "../pages/PostsPage";
+import {UserPage} from "../pages/UserPage";
+ 
+export const routes= createBrowserRouter([
+    {
+        path: '', element:<Layout/>,
+        children: [
+            {path: '', element: <HomePage/>},
+            {path: 'users', element: <UsersPages/>},
+            {path: 'users/:userId', element: <UserPage/>},
+            {path: 'posts', element: <PostsPage/>}
+        ]
+    }
+]);
+_Изученные концепции/технологии:
+
+Несколько thunks в одном slice: Создание нескольких асинхронных thunks в одном slice.
+addMatcher: Метод для обработки действий, соответствующих определенному условию.
+isFulfilled: Предикат для проверки, успешно ли выполнен thunk.
+isRejected: Предикат для проверки, отклонен ли thunk с ошибкой.
+Состояние загрузки: Добавление флага загрузки для отображения UI загрузки.
+Динамические маршруты: Использование параметров маршрута (:userId) для загрузки данных по ID.
+useParams: Хук React Router для получения параметров маршрута.
+_Нюансы/Лучшие практики:
+
+addMatcher vs addCase: addCase для конкретных действий, addMatcher для общих условий (например, все fulfilled действия).
+Общие обработчики: addMatcher позволяет избежать дублирования кода при обработке одинаковых состояний разных thunks.
+Состояние загрузки: Важно отображать состояние загрузки пользователю для лучшего UX.
+Параметры маршрута: Использование динамических параметров для загрузки данных по ID.
+Разделение страниц: Отдельные страницы для списка и деталей пользователя улучшают навигацию.
+loadState логика: В текущей реализации loadState устанавливается в true только при успешном выполнении, что может быть не совсем корректно для отображения загрузки.**__
