@@ -43,8 +43,8 @@ main.tsx — роуты: / и /movie/:id
 [x] AGENTS.md и WORKFLOW.md скопированы из dev-notes
 [x] Аккаунт themoviedb.org + API Read Access Token
 [x] .env: VITE_API_BASE_URL + VITE_TMDB_TOKEN
-[ ] PLAN.md в корне проекта
-[ ] Зеркало dev-notes/movies-app/ + пуш dev-notes
+[x] PLAN.md в корне проекта
+[x] Зеркало dev-notes/movies-app/ + пуш dev-notes
 
 ЭТАП 1 — КАРКАС И РОУТИНГ (на моках)
 [ ] Мок: 3 фильма захардкодить (id, title, poster_path, vote_average, genre_ids)
